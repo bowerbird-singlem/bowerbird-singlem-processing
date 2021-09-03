@@ -1,9 +1,5 @@
-from googleapiclient import discovery
-from oauth2client.client import GoogleCredentials
-from pprint import pprint
 import os
-import json
-import sys
+from google.cloud import bigquery
 
 from flask import Flask, request
 
@@ -11,17 +7,18 @@ app = Flask(__name__)
 
 @app.route("/", methods=["POST"])
 def index():
-    credentials = GoogleCredentials.get_application_default()
-    service = discovery.build('lifesciences', 'v2beta', credentials=credentials)
-    parent = 'projects/maximal-dynamo-308105/locations/us-central1'
+    client = bigquery.Client()
 
-    with open(os.path.join(sys.path[0], "pipeline.json"), "r") as f:
-        run_pipeline_request_body = json.load(f)
+    # Perform a query.
+    QUERY = (
+        'SELECT name FROM `bigquery-public-data.usa_names.usa_1910_2013` '
+        'WHERE state = "TX" '
+        'LIMIT 3')
+    query_job = client.query(QUERY)  # API request
+    rows = query_job.result()  # Waits for query to finish
 
-    request = service.projects().locations().pipelines().run(parent=parent, body=run_pipeline_request_body)
-    response = request.execute()
-
-    pprint(response)
+    for row in rows:
+        print(row.name)
 
     return ("", 204)
 
