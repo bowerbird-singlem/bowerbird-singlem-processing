@@ -1,0 +1,81 @@
+steps:
+- id: 'repository'
+  name: 'hashicorp/terraform:1.0.0'
+  entrypoint: 'sh'
+  args:
+  - '-c'
+  - | 
+        cd terraform/prebuild      
+        terraform init
+        terraform workspace select prebuild || terraform workspace new prebuild
+        terraform init
+        if [ $_INFRA_ACTION = 'deploy' ]; then
+            terraform apply -auto-approve
+        else
+            terraform destroy -auto-approve
+        fi
+  env:
+  - 'TF_VAR_repository=${_REPOSITORY}'
+  - 'TF_VAR_region=${_REGION}'
+  - 'TF_VAR_infra_action=${_INFRA_ACTION}'
+  - 'TF_VAR_service=${_SERVICE}'
+
+- id: 'cloud run image build'
+  name: "gcr.io/cloud-builders/docker"
+  entrypoint: 'sh'
+  args:
+  - '-c'
+  - |   
+        if [ $_INFRA_ACTION = 'deploy' ]; then 
+        docker build -t $_REGION-$_REPOSITORY_BASE_URL/$PROJECT_ID/$_REPOSITORY/$_SERVICE:$SHORT_SHA -t $_REGION-$_REPOSITORY_BASE_URL/$PROJECT_ID/$_REPOSITORY/$_SERVICE:latest -f cloudrun/$_SERVICE/Dockerfile . 
+        fi
+  env:
+  - 'REGION=${_REGION}'
+  - 'REPOSITORY_BASE_URL=${_REPOSITORY_BASE_URL}' 
+  - 'REPOSITORY=${_REPOSITORY}'
+  - 'INFRA_ACTION=${_INFRA_ACTION}'
+  - 'SERVICE=${_SERVICE}'  
+    
+- id: 'cloud run image deploy' 
+  name: "gcr.io/cloud-builders/docker"
+  entrypoint: 'sh'
+  args: 
+  - '-c'
+  - |   
+        if [ $_INFRA_ACTION = 'deploy' ]; then
+        docker push $_REGION-$_REPOSITORY_BASE_URL/$PROJECT_ID/$_REPOSITORY/$_SERVICE
+        fi
+  env:
+  - 'REGION=${_REGION}'
+  - 'REPOSITORY_BASE_URL=${_REPOSITORY_BASE_URL}' 
+  - 'REPOSITORY=${_REPOSITORY}'
+  - 'INFRA_ACTION=${_INFRA_ACTION}'
+  - 'SERVICE=${_SERVICE}'
+
+- id: 'app deploy'
+  name: 'hashicorp/terraform:1.0.0'
+  entrypoint: 'sh'
+  args: 
+  - '-c'
+  - | 
+        cd terraform/postbuild 
+        terraform init
+        terraform workspace select postbuild || terraform workspace new postbuild 
+        terraform init
+        if [ $_INFRA_ACTION = 'deploy' ]; then
+            terraform apply -auto-approve -replace="google_cloud_run_service.cloudrun-srv"
+        else
+            terraform destroy -auto-approve
+        fi
+  env:
+  - 'TF_VAR_infra_action=${_INFRA_ACTION}'
+  - 'TF_VAR_repository=${_REPOSITORY}'
+  - 'TF_VAR_service=${_SERVICE}'
+substitutions:  
+  _REPOSITORY_BASE_URL: docker.pkg.dev
+  _REPOSITORY: bowerbird-singlem-processing 
+  _REGION: us-central1
+  _INFRA_ACTION: deploy
+  _SERVICE: get-new-sra-runs
+options:
+  substitution_option: 'ALLOW_LOOSE'
