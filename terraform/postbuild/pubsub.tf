@@ -1,5 +1,5 @@
 resource "google_pubsub_topic" "get_new_sra_runs_requests" {
-  name = "bowerbird_singlem_processing_get_new_sra_runs_requests"
+  name = "bb-singlem-processing-get-new-sra-runs-requests"
   project = var.project
   depends_on = [
     google_project_service.pubsub-gcp-service,
@@ -7,7 +7,7 @@ resource "google_pubsub_topic" "get_new_sra_runs_requests" {
 }
 
 resource "google_pubsub_subscription" "get_new_sra_runs_requests_subscription" {
-  name  = "bowerbird_singlem_processing_get_new_sra_runs_requests_subscription"
+  name  = "bb-singlem-processing-get-new-sra-runs-requests-subscription"
   topic = google_pubsub_topic.get_new_sra_runs_requests.name
 
   ack_deadline_seconds = 20
