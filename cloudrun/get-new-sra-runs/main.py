@@ -7,7 +7,7 @@ app = Flask(__name__)
 
 @app.route("/", methods=["POST"])
 def index():
-    client = bigquery.Client()
+    #client = bigquery.Client()
 
     # Perform a query.
     #QUERY = (
