@@ -1,5 +1,5 @@
 resource "google_cloud_run_service" "get_new_sra_runs" {
-  name     = "bowerbird_singlem_processing_get_new_sra_runs"
+  name     = "bb-singlem-proc-get-new-sra-runs"
   location = var.region
 
   template {
