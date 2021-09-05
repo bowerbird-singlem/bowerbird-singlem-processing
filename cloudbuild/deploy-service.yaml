@@ -27,8 +27,10 @@ steps:
   - '-c'
   - |   
         if [ $_INFRA_ACTION = 'deploy' ]; then 
-        docker build -t $_REGION-$_REPOSITORY_BASE_URL/$PROJECT_ID/$_REPOSITORY/$_SERVICE:$SHORT_SHA -t $_REGION-$_REPOSITORY_BASE_URL/$PROJECT_ID/$_REPOSITORY/$_SERVICE:latest -f cloudrun/$_SERVICE/Dockerfile . 
-        docker push $_REGION-$_REPOSITORY_BASE_URL/$PROJECT_ID/$_REPOSITORY/$_SERVICE
+        for SERV in $(find ./cloudrun -mindepth 1 -maxdepth 1 -type d) ; do
+        docker build -t $_REGION-$_REPOSITORY_BASE_URL/$PROJECT_ID/$_REPOSITORY/${SERV##*/}:$SHORT_SHA -t $_REGION-$_REPOSITORY_BASE_URL/$PROJECT_ID/$_REPOSITORY/${SERV##*/}:latest -f cloudrun/${SERV##*/}/Dockerfile . 
+        docker push $_REGION-$_REPOSITORY_BASE_URL/$PROJECT_ID/$_REPOSITORY/${SERV##*/}
+        done
         fi
   env:
   - 'REGION=${_REGION}'
