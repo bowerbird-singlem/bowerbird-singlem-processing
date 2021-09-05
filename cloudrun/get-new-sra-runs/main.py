@@ -20,7 +20,7 @@ def index():
     rows = query_job.result()  # Waits for query to finish
 
     for row in rows:
-        print(row.name)
+        print(row.acc)
 
     return ("", 204)
 
