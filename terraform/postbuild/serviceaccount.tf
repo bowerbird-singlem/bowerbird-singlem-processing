@@ -3,15 +3,15 @@ resource "google_service_account" "cloudrun_invoker" {
   project = var.project
 }
 
-resource "google_service_account" "cloudrun_executor" {
-  account_id   = "bb-singlem-proc-cr-executor"
+resource "google_service_account" "get_new_sra_runs_executor" {
+  account_id   = "bb-singlem-proc-get-new-sra-runs-executor"
   project = var.project
 }
 
-resource "google_project_iam_binding" "cloudrun_executor_biquery_role" {
+resource "google_project_iam_binding" "get_new_sra_runs_executor_biquery_role" {
   project = var.project
   role    = "roles/editor"
   members = [
-    "serviceAccount:${google_service_account.cloudrun_executor.email}"
+    "serviceAccount:${google_service_account.get_new_sra_runs_executor.email}"
   ]
 }
