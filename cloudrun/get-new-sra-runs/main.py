@@ -11,7 +11,7 @@ def index():
     client = bigquery.Client()
 
     QUERY = (
-        'SELECT acc, mbases, mbytes FROM `maximal-dynamo-308105:singlem.sra_metadata_test1` '
+        'SELECT acc, mbases, mbytes FROM `maximal-dynamo-308105.singlem.sra_metadata_test1` '
         'WHERE mbases < 500 '
         'LIMIT 2')
     
