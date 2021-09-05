@@ -11,9 +11,9 @@ def index():
     client = bigquery.Client()
 
     QUERY = (
-        'SELECT name FROM `bigquery-public-data.usa_names.usa_1910_2013` '
-        'WHERE state = "TX" '
-        'LIMIT 3')
+        'SELECT acc, mbases, mbytes FROM `maximal-dynamo-308105:singlem.sra_metadata_test1` '
+        'WHERE mbases < 500 '
+        'LIMIT 2')
     
     query_job = client.query(QUERY)  # API request
     
