@@ -1,5 +1,5 @@
 steps:
-- id: 'repository'
+- id: 'repository deploy'
   name: 'hashicorp/terraform:1.0.0'
   entrypoint: 'sh'
   args:
@@ -20,7 +20,7 @@ steps:
   - 'TF_VAR_infra_action=${_INFRA_ACTION}'
   - 'TF_VAR_service=${_SERVICE}'
 
-- id: 'cloud run image build'
+- id: 'cloud run image build and push'
   name: "gcr.io/cloud-builders/docker"
   entrypoint: 'sh'
   args:
@@ -28,6 +28,7 @@ steps:
   - |   
         if [ $_INFRA_ACTION = 'deploy' ]; then 
         docker build -t $_REGION-$_REPOSITORY_BASE_URL/$PROJECT_ID/$_REPOSITORY/$_SERVICE:$SHORT_SHA -t $_REGION-$_REPOSITORY_BASE_URL/$PROJECT_ID/$_REPOSITORY/$_SERVICE:latest -f cloudrun/$_SERVICE/Dockerfile . 
+        docker push $_REGION-$_REPOSITORY_BASE_URL/$PROJECT_ID/$_REPOSITORY/$_SERVICE
         fi
   env:
   - 'REGION=${_REGION}'
@@ -36,22 +37,6 @@ steps:
   - 'INFRA_ACTION=${_INFRA_ACTION}'
   - 'SERVICE=${_SERVICE}'  
     
-- id: 'cloud run image deploy' 
-  name: "gcr.io/cloud-builders/docker"
-  entrypoint: 'sh'
-  args: 
-  - '-c'
-  - |   
-        if [ $_INFRA_ACTION = 'deploy' ]; then
-        docker push $_REGION-$_REPOSITORY_BASE_URL/$PROJECT_ID/$_REPOSITORY/$_SERVICE
-        fi
-  env:
-  - 'REGION=${_REGION}'
-  - 'REPOSITORY_BASE_URL=${_REPOSITORY_BASE_URL}' 
-  - 'REPOSITORY=${_REPOSITORY}'
-  - 'INFRA_ACTION=${_INFRA_ACTION}'
-  - 'SERVICE=${_SERVICE}'
-
 - id: 'app deploy'
   name: 'hashicorp/terraform:1.0.0'
   entrypoint: 'sh'
