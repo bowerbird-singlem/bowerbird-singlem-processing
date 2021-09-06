@@ -28,7 +28,7 @@ resource "google_cloud_run_service" "get_new_sra_runs" {
   ]
 }
 
-resource "google_cloud_run_service_iam_binding" "binding" {
+resource "google_cloud_run_service_iam_binding" "get_new_sra_runs_binding" {
   location = google_cloud_run_service.get_new_sra_runs.location
   project = google_cloud_run_service.get_new_sra_runs.project
   service = google_cloud_run_service.get_new_sra_runs.name

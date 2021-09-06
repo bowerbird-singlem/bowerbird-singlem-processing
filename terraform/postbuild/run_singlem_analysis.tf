@@ -28,7 +28,7 @@ resource "google_cloud_run_service" "run_singlem_analysis" {
   ]
 }
 
-resource "google_cloud_run_service_iam_binding" "binding" {
+resource "google_cloud_run_service_iam_binding" "run_singlem_analysis_binding" {
   location = google_cloud_run_service.run_singlem_analysis.location
   project = google_cloud_run_service.run_singlem_analysis.project
   service = google_cloud_run_service.run_singlem_analysis.name
