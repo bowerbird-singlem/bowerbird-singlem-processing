@@ -50,7 +50,7 @@ steps:
         terraform workspace select postbuild || terraform workspace new postbuild 
         terraform init
         if [ $_INFRA_ACTION = 'deploy' ]; then
-            terraform apply -auto-approve -replace="google_cloud_run_service.bb-singlem-proc-get-new-sra-runs" -replace="google_cloud_run_service.bb-singlem-proc-get-new-sra-runs"
+            terraform apply -auto-approve -replace="google_cloud_run_service.get_new_sra_runs" -replace="google_cloud_run_service.run_singlem_analysis"
         else
             terraform destroy -auto-approve
         fi
