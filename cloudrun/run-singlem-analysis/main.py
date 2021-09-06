@@ -19,16 +19,12 @@ def index():
         print(f"error: {msg}")
         return f"Bad Request: {msg}", 400
 
-    print(envelope)
     acc = envelope.get('message', '').get('attributes', '').get('accession', '')
-    print(acc)
-    #pubsub_message = envelope["accession"]
 
-    #name = "World"
     #if isinstance(pubsub_message, dict) and "data" in pubsub_message:
     #    name = base64.b64decode(pubsub_message["accession"]).decode("utf-8").strip()
 
-    print(f"SRA Accession: {acc}!")
+    print(f"SRA Accession: {acc}")
 
     return ("", 204)
 
