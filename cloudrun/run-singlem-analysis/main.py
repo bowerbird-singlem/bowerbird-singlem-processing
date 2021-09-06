@@ -8,8 +8,7 @@ app = Flask(__name__)
 @app.route("/", methods=["POST"])
 def index():
     
-    data = request.get_json()
-    print(envelope)
+    envelope = request.get_json()
     if not envelope:
         msg = "no Pub/Sub message received"
         print(f"error: {msg}")
@@ -20,8 +19,9 @@ def index():
         print(f"error: {msg}")
         return f"Bad Request: {msg}", 400
 
-    acc = data.get('accession', '')
-    print(name)
+    print(envelope)
+    acc = envelope.get('accession', '')
+    print(acc)
     #pubsub_message = envelope["accession"]
 
     #name = "World"
