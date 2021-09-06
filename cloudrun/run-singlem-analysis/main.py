@@ -23,7 +23,7 @@ def index():
 
     name = "World"
     if isinstance(pubsub_message, dict) and "data" in pubsub_message:
-        name = base64.b64decode(pubsub_message["data"]).decode("utf-8").strip()
+        name = base64.b64decode(pubsub_message["accession"]).decode("utf-8").strip()
 
     print(f"SRA Accession: {name}!")
 
