@@ -6,6 +6,19 @@ resource "google_pubsub_topic" "get_new_sra_runs_requests" {
   ]
 }
 
+resource "google_service_account" "get_new_sra_runs_executor" {
+  account_id   = "bb-sing-proc-get-new-sra"
+  project = var.project
+}
+
+resource "google_project_iam_binding" "get_new_sra_runs_executor_bigquery_role" {
+  project = var.project
+  role    = "roles/editor"
+  members = [
+    "serviceAccount:${google_service_account.get_new_sra_runs_executor.email}"
+  ]
+}
+
 resource "google_cloud_run_service" "get_new_sra_runs" {
   name     = "bb-singlem-proc-get-new-sra-runs"
   location = var.region

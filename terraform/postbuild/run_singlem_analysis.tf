@@ -6,6 +6,11 @@ resource "google_pubsub_topic" "run_singlem_analysis_requests" {
   ]
 }
 
+resource "google_service_account" "run_singlem_analysis_executor" {
+  account_id   = "bb-sing-proc-run-singlem"
+  project = var.project
+}
+
 resource "google_cloud_run_service" "run_singlem_analysis" {
   name     = "bb-singlem-proc-run-singlem-analysis"
   location = var.region
