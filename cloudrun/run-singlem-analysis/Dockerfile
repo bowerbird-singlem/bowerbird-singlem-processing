@@ -7,7 +7,7 @@ ENV PYTHONUNBUFFERED True
 
 # Copy application dependency manifests to the container image.
 # Copying this separately prevents re-running pip install on every code change.
-COPY cloudrun/get-new-sra-runs/requirements.txt ./
+COPY cloudrun/run-singlem-analysis/requirements.txt ./
 
 # Install production dependencies.
 RUN pip install -r requirements.txt
@@ -15,7 +15,7 @@ RUN pip install -r requirements.txt
 # Copy local code to the container image.
 ENV APP_HOME /app
 WORKDIR $APP_HOME
-COPY cloudrun/get-new-sra-runs/ ./
+COPY cloudrun/run-singlem-analysis/ ./
 
 # Run the web service on container startup.
 # Use gunicorn webserver with one worker process and 8 threads.
