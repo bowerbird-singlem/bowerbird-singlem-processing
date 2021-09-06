@@ -1,5 +1,6 @@
 import os
 from google.cloud import bigquery
+from google.cloud import pubsub_v1
 
 from flask import Flask, request
 
@@ -18,10 +19,12 @@ def index():
     query_job = client.query(QUERY)  # API request
     
     rows = query_job.result()  # Waits for query to finish
+    
+    publisher = pubsub_v1.PublisherClient()
 
     for row in rows:
-        print(row.acc)
-
+        future = publisher.publish("bb-singlem-processing-run-singlem-analysis-requests", b'test', message=row.acc)
+        future.result()
     return ("", 204)
 
 
