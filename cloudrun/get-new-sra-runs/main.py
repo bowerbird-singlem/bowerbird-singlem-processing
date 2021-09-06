@@ -23,7 +23,7 @@ def index():
     publisher = pubsub_v1.PublisherClient()
 
     for row in rows:
-        future = publisher.publish("projects/maximal-dynamo-308105/topics/bb-singlem-processing-run-singlem-analysis-requests", b'test', message=row.acc)
+        future = publisher.publish("projects/maximal-dynamo-308105/topics/bb-singlem-processing-run-singlem-analysis-requests", b'test', accession=row.acc)
         future.result()
     return ("", 204)
 
