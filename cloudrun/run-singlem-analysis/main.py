@@ -8,7 +8,7 @@ app = Flask(__name__)
 @app.route("/", methods=["POST"])
 def index():
     
-    envelope = request.get_json()
+    data = request.get_json()
     print(envelope)
     if not envelope:
         msg = "no Pub/Sub message received"
