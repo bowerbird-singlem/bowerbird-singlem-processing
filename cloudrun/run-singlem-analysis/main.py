@@ -20,7 +20,7 @@ def index():
         return f"Bad Request: {msg}", 400
 
     print(envelope)
-    acc = envelope.get('accession', '')
+    acc = envelope.get('message', '').get('attributes', '').get('accession', '')
     print(acc)
     #pubsub_message = envelope["accession"]
 
