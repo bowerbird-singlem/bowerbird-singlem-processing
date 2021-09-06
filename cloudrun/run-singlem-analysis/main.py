@@ -9,6 +9,7 @@ app = Flask(__name__)
 def index():
     
     envelope = request.get_json()
+    print(envelope)
     if not envelope:
         msg = "no Pub/Sub message received"
         print(f"error: {msg}")
@@ -19,13 +20,15 @@ def index():
         print(f"error: {msg}")
         return f"Bad Request: {msg}", 400
 
-    pubsub_message = envelope["accession"]
+    acc = data.get('accession', '')
+    print(name)
+    #pubsub_message = envelope["accession"]
 
-    name = "World"
-    if isinstance(pubsub_message, dict) and "data" in pubsub_message:
-        name = base64.b64decode(pubsub_message["accession"]).decode("utf-8").strip()
+    #name = "World"
+    #if isinstance(pubsub_message, dict) and "data" in pubsub_message:
+    #    name = base64.b64decode(pubsub_message["accession"]).decode("utf-8").strip()
 
-    print(f"SRA Accession: {name}!")
+    print(f"SRA Accession: {acc}!")
 
     return ("", 204)
 
