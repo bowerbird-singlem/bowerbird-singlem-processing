@@ -19,7 +19,7 @@ def index():
         print(f"error: {msg}")
         return f"Bad Request: {msg}", 400
 
-    pubsub_message = envelope["message"]
+    pubsub_message = envelope["accession"]
 
     name = "World"
     if isinstance(pubsub_message, dict) and "data" in pubsub_message:
