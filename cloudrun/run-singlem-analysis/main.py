@@ -1,5 +1,4 @@
 import os
-from google.cloud import bigquery
 
 from flask import Flask, request
 
@@ -8,19 +7,24 @@ app = Flask(__name__)
 @app.route("/", methods=["POST"])
 def index():
     
-    client = bigquery.Client()
+    envelope = request.get_json()
+    if not envelope:
+        msg = "no Pub/Sub message received"
+        print(f"error: {msg}")
+        return f"Bad Request: {msg}", 400
 
-    QUERY = (
-        'SELECT acc, mbases, mbytes FROM `maximal-dynamo-308105.singlem.sra_metadata_test1` '
-        'WHERE mbases < 500 '
-        'LIMIT 2')
-    
-    query_job = client.query(QUERY)  # API request
-    
-    rows = query_job.result()  # Waits for query to finish
+    if not isinstance(envelope, dict) or "message" not in envelope:
+        msg = "invalid Pub/Sub message format"
+        print(f"error: {msg}")
+        return f"Bad Request: {msg}", 400
 
-    for row in rows:
-        print(row.acc)
+    pubsub_message = envelope["message"]
+
+    name = "World"
+    if isinstance(pubsub_message, dict) and "data" in pubsub_message:
+        name = base64.b64decode(pubsub_message["data"]).decode("utf-8").strip()
+
+    print(f"SRA Accession: {name}!")
 
     return ("", 204)
 
