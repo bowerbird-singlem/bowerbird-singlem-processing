@@ -65,6 +65,7 @@
       "environment":{
          "INPUT_FILE":"gs://maximal-dynamo-308105-lifesciences-test/animals.txt",
 	 "OUTPUT_DIR":"gs://maximal-dynamo-308105-lifesciences-test"
+	 "ACCESSION":"default"
       }
   }
 }
