@@ -44,7 +44,7 @@ def index():
     ls_request = service.projects().locations().pipelines().run(parent=parent, body=run_pipeline_request_body)
     response = ls_request.execute()
 
-    pprint(response["pipeline"]["environment"]["ACCESSION"])
+    pprint(response["metadata"]["pipeline"]["environment"]["ACCESSION"])
     
     return ("", 204)
 
