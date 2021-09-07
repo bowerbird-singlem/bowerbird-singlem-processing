@@ -21,7 +21,7 @@
             "commands":[
                "/bin/bash",
                "-c",
-               "head -1 /mnt/data/animals.txt >> /mnt/data/out.txt"
+               "head -1 /mnt/data/animals.txt >> /mnt/data/$ACCESSION.txt"
             ],
             "mounts":{
                "disk":"dataDisk",
