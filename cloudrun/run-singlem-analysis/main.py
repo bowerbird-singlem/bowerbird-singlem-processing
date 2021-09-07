@@ -32,7 +32,7 @@ def index():
 
     print(f"SRA Accession: {acc}")
 
-        credentials = GoogleCredentials.get_application_default()
+    credentials = GoogleCredentials.get_application_default()
     service = discovery.build('lifesciences', 'v2beta', credentials=credentials)
     parent = 'projects/maximal-dynamo-308105/locations/us-central1'
 
