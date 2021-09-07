@@ -45,6 +45,7 @@ def index():
     response = ls_request.execute()
 
     pprint(response["metadata"]["pipeline"]["environment"]["ACCESSION"])
+    pprint(response["name"])
     
     return ("", 204)
 
