@@ -42,7 +42,7 @@ def index():
     ls_request = service.projects().locations().pipelines().run(parent=parent, body=run_pipeline_request_body)
     response = ls_request.execute()
 
-    pprint(response)
+    pprint(response['name'])
     
     return ("", 204)
 
