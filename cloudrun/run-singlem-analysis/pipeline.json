@@ -51,7 +51,7 @@
             "machineType":"n1-custom-1-2048",
             "enableStackdriverMonitoring":true,
             "serviceAccount":{
-               "email":"helloworld-pipe-sa@maximal-dynamo-308105.iam.gserviceaccount.com"
+               "email":"bb-singlem-proc-ls-executor@maximal-dynamo-308105.iam.gserviceaccount.com"
             },
             "bootDiskSizeGb":30,
             "disks":[
