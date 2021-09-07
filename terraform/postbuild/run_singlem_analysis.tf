@@ -11,6 +11,22 @@ resource "google_service_account" "run_singlem_analysis_executor" {
   project = var.project
 }
 
+resource "google_project_iam_binding" "run_singlem_analysis_executor_can_run_lifesciences" {
+  project = var.project
+  role    = "roles/lifesciences.workflowsRunner"
+  members = [
+    "serviceAccount:${google_service_account.run_singlem_analysis_executor.email}"
+  ]
+}
+
+resource "google_service_account_iam_binding" "run_singlem_analysis_executor_can_impersonate_lifesciences_executor" {
+  service_account_id = google_service_account.lifesciences_executor.name
+  role               = "roles/iam.serviceAccountUser"
+  members = [
+    "serviceAccount:${google_service_account.run_singlem_analysis_executor.email}",
+  ]
+}
+
 resource "google_cloud_run_service" "run_singlem_analysis" {
   name     = "bb-singlem-proc-run-singlem-analysis"
   location = var.region
