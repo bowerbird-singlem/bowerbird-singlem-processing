@@ -16,3 +16,10 @@ resource "google_project_iam_binding" "lifesciences_executor_can_do_anything" {
   ]
 }
 
+resource "google_project_iam_binding" "lifesciences_executor_can_use_storage" {
+  project = var.project
+  role    = "roles/storage.objectAdmin"
+  members = [
+    "serviceAccount:${google_service_account.lifesciences_executor.email}"
+  ]
+}
