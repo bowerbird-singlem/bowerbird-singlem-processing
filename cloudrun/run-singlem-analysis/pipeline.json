@@ -35,7 +35,7 @@
             "commands":[
                "/bin/bash",
                "-c",
-               "gsutil -m cp /mnt/data/out.txt $OUTPUT_DIR"
+               "gsutil -m cp /mnt/data/$ACCESSION.txt $OUTPUT_DIR"
             ],
             "mounts":{
                "disk":"dataDisk",
@@ -64,8 +64,8 @@
       },
       "environment":{
          "INPUT_FILE":"gs://maximal-dynamo-308105-lifesciences-test/animals.txt",
-	 "OUTPUT_DIR":"gs://maximal-dynamo-308105-lifesciences-test",
-	 "ACCESSION":"default"
+         "OUTPUT_DIR":"gs://maximal-dynamo-308105-lifesciences-test",
+         "ACCESSION":"default"
       }
   }
 }
