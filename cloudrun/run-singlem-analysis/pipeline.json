@@ -14,6 +14,19 @@
                "path":"/mnt/data"
             },
             "ignoreExitStatus":true
+         },
+         {
+            "containerName":"save-outputs-to-storage",
+            "imageUri":"gcr.io/google.com/cloudsdktool/cloud-sdk",
+            "commands":[
+               "/bin/bash",
+               "-c",
+               "gsutil -m cp /mnt/data/$SRA_ACCESSION_NUM.unannotated.singlem.json $OUTPUT_DIR"
+            ],
+            "mounts":{
+               "disk":"dataDisk",
+               "path":"/mnt/data"
+            }
          }
       ],
       "resources":{
@@ -37,7 +50,8 @@
       },
       "environment":{
          "SRA_ACCESSION_NUM":"ERR4031887",
-         "DOWNLOAD_METHOD_ORDER":"aws-http prefetch"        
+         "DOWNLOAD_METHOD_ORDER":"aws-http prefetch",
+	 "OUTPUT_DIR":"gs://maximal-dynamo-308105-lifesciences-test"
       }
   }
 }
