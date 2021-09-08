@@ -15,13 +15,27 @@
             },
             "ignoreExitStatus":true
          },
+	 {
+            "containerName":"singlem-taxonomy",
+            "imageUri":"gcr.io/maximal-dynamo-308105/singlem:0.13.2-dev26.4ba1c49",
+            "commands":[
+               "/bin/bash",
+               "-c",
+               "/opt/conda/envs/env/bin/time /singlem/bin/singlem renew --min_orf_length 72 --input-archive-otu-table $SRA_ACCESSION_NUM.unannotated.singlem.json --singlem-packages `ls -d /pkgs/*spkg` --archive-otu-table $SRA_ACCESSION_NUM.singlem.json --assignment-method diamond --diamond-taxonomy-assignment-performance-parameters '--block-size 0.5 --target-indexed -c1'; \n gzip $SRA_ACCESSION_NUM.singlem.json"
+            ],
+            "mounts":{
+               "disk":"dataDisk",
+               "path":"/mnt/data"
+            },
+            "ignoreExitStatus":true
+         },
          {
             "containerName":"save-outputs-to-storage",
             "imageUri":"gcr.io/google.com/cloudsdktool/cloud-sdk",
             "commands":[
                "/bin/bash",
                "-c",
-               "gsutil -m cp /mnt/data/$SRA_ACCESSION_NUM.unannotated.singlem.json $OUTPUT_DIR"
+               "gsutil -m cp /mnt/data/$SRA_ACCESSION_NUM.singlem.json $OUTPUT_DIR"
             ],
             "mounts":{
                "disk":"dataDisk",
@@ -51,7 +65,7 @@
       "environment":{
          "SRA_ACCESSION_NUM":"ERR4031887",
          "DOWNLOAD_METHOD_ORDER":"aws-http prefetch",
-	 "OUTPUT_DIR":"gs://maximal-dynamo-308105-lifesciences-test"
+         "OUTPUT_DIR":"gs://maximal-dynamo-308105-lifesciences-test"
       }
   }
 }
