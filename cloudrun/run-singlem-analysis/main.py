@@ -39,12 +39,12 @@ def index():
     with open(os.path.join(sys.path[0], "pipeline.json"), "r") as f:
         run_pipeline_request_body = json.load(f)
     
-    run_pipeline_request_body["pipeline"]["environment"]["ACCESSION"] = acc
+    run_pipeline_request_body["pipeline"]["environment"]["SRA_ACCESSION_NUM"] = acc
 
     ls_request = service.projects().locations().pipelines().run(parent=parent, body=run_pipeline_request_body)
     response = ls_request.execute()
 
-    pprint(response["metadata"]["pipeline"]["environment"]["ACCESSION"])
+    pprint(response["metadata"]["pipeline"]["environment"]["SRA_ACCESSION_NUM"])
     pprint(response["name"])
     
     return ("", 204)

@@ -2,45 +2,18 @@
   "pipeline": {
       "actions":[
          {
-            "containerName":"gCloudIn",
-            "imageUri":"gcr.io/google.com/cloudsdktool/cloud-sdk",
+            "containerName":"singlem-gather",
+            "imageUri":"gcr.io/maximal-dynamo-308105/singlem:0.13.2-dev26.4ba1c49",
             "commands":[
                "/bin/bash",
                "-c",
-               "gsutil -m cp $INPUT_FILE /mnt/data/"
+               "python /kingfisher-download/bin/kingfisher get -r $SRA_ACCESSION_NUM --gcp-user-key-file undefined --output-format-possibilities sra --guess-aws-location --hide-download-progress -m $DOWNLOAD_METHOD_ORDER; \n /opt/conda/envs/env/bin/time /singlem/bin/singlem pipe --sra-files $SRA_ACCESSION_NUM.sra --archive_otu_table $SRA_ACCESSION_NUM.unannotated.singlem.json --threads 1 --diamond-prefilter-performance-parameters '--block-size 0.5 --target-indexed -c1 --min-orf 24' --diamond-prefilter-db /pkgs/53_db2.0-attempt4.0.60.faa.dmnd --min_orf_length 72 --singlem-packages `ls -d /pkgs/*spkg` --diamond-package-assignment --no-assign-taxonomy --working-directory-tmpdir; \n ls -la"
             ],
             "mounts":{
                "disk":"dataDisk",
                "path":"/mnt/data"
             },
             "ignoreExitStatus":true
-         },
-         {
-            "containerName":"Truncate",
-            "imageUri":"ubuntu",
-            "commands":[
-               "/bin/bash",
-               "-c",
-               "head -1 /mnt/data/animals.txt >> /mnt/data/$ACCESSION.txt"
-            ],
-            "mounts":{
-               "disk":"dataDisk",
-               "path":"/mnt/data"
-            },
-            "ignoreExitStatus":true
-         },
-         {
-            "containerName":"gCloudOut",
-            "imageUri":"gcr.io/google.com/cloudsdktool/cloud-sdk",
-            "commands":[
-               "/bin/bash",
-               "-c",
-               "gsutil -m cp /mnt/data/$ACCESSION.txt $OUTPUT_DIR"
-            ],
-            "mounts":{
-               "disk":"dataDisk",
-               "path":"/mnt/data"
-            }
          }
       ],
       "resources":{
@@ -63,9 +36,8 @@
          }
       },
       "environment":{
-         "INPUT_FILE":"gs://maximal-dynamo-308105-lifesciences-test/animals.txt",
-         "OUTPUT_DIR":"gs://maximal-dynamo-308105-lifesciences-test",
-         "ACCESSION":"default"
+         "SRA_ACCESSION_NUM":"ERR4031887",
+         "DOWNLOAD_METHOD_ORDER":"aws-http prefetch"        
       }
   }
 }
