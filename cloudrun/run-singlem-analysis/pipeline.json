@@ -63,7 +63,7 @@
          }
       },
       "environment":{
-         "SRA_ACCESSION_NUM":"ERR4031887",
+         "SRA_ACCESSION_NUM":"",
          "DOWNLOAD_METHOD_ORDER":"aws-http prefetch",
          "OUTPUT_DIR":"gs://maximal-dynamo-308105-lifesciences-test"
       }

@@ -14,7 +14,7 @@ def index():
     QUERY = (
         'SELECT acc, mbases, mbytes FROM `maximal-dynamo-308105.singlem.sra_metadata_test1` '
         'WHERE mbases < 500 '
-        'LIMIT 1')
+        'LIMIT 2')
     
     query_job = client.query(QUERY)  # API request
     

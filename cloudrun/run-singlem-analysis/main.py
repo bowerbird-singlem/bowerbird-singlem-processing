@@ -30,8 +30,6 @@ def index():
     #if isinstance(pubsub_message, dict) and "data" in pubsub_message:
     #    name = base64.b64decode(pubsub_message["accession"]).decode("utf-8").strip()
 
-    print(f"SRA Accession: {acc}")
-
     credentials = GoogleCredentials.get_application_default()
     service = discovery.build('lifesciences', 'v2beta', credentials=credentials)
     parent = 'projects/maximal-dynamo-308105/locations/us-central1'
@@ -44,7 +42,7 @@ def index():
     ls_request = service.projects().locations().pipelines().run(parent=parent, body=run_pipeline_request_body)
     response = ls_request.execute()
 
-    pprint(response["metadata"]["pipeline"]["environment"]["SRA_ACCESSION_NUM"])
+    print(f"SRA Accession: {response["metadata"]["pipeline"]["environment"]["SRA_ACCESSION_NUM"]}")
     pprint(response["name"])
     
     return ("", 204)
