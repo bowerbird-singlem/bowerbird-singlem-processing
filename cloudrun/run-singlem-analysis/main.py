@@ -42,7 +42,7 @@ def index():
     ls_request = service.projects().locations().pipelines().run(parent=parent, body=run_pipeline_request_body)
     response = ls_request.execute()
 
-    print(f"SRA Accession: {response["metadata"]["pipeline"]["environment"]["SRA_ACCESSION_NUM"]}")
+    #print(f"SRA Accession: {response["metadata"]["pipeline"]["environment"]["SRA_ACCESSION_NUM"]}")
     pprint(response["name"])
     
     return ("", 204)
