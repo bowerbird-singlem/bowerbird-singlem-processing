@@ -7,7 +7,7 @@
             "commands":[
                "/bin/bash",
                "-c",
-	       "cd /mnt/data; \n python /kingfisher-download/bin/kingfisher get -r $SRA_ACCESSION_NUM --gcp-user-key-file undefined --output-format-possibilities sra --guess-aws-location --hide-download-progress -m $DOWNLOAD_METHOD_ORDER; \n /opt/conda/envs/env/bin/time /singlem/bin/singlem pipe --sra-files $SRA_ACCESSION_NUM.sra --archive_otu_table $SRA_ACCESSION_NUM.unannotated.singlem.json --threads 1 --diamond-prefilter-performance-parameters '--block-size 0.5 --target-indexed -c1 --min-orf 24' --diamond-prefilter-db /pkgs/53_db2.0-attempt4.0.60.faa.dmnd --min_orf_length 72 --singlem-packages `ls -d /pkgs/*spkg` --diamond-package-assignment --no-assign-taxonomy --working-directory-tmpdir; \n ls -la"
+               "cd /mnt/data; \n python /kingfisher-download/bin/kingfisher get -r $SRA_ACCESSION_NUM --gcp-user-key-file undefined --output-format-possibilities sra --guess-aws-location --hide-download-progress -m $DOWNLOAD_METHOD_ORDER; \n /opt/conda/envs/env/bin/time /singlem/bin/singlem pipe --sra-files $SRA_ACCESSION_NUM.sra --archive_otu_table $SRA_ACCESSION_NUM.unannotated.singlem.json --threads 1 --diamond-prefilter-performance-parameters '--block-size 0.5 --target-indexed -c1 --min-orf 24' --diamond-prefilter-db /pkgs/53_db2.0-attempt4.0.60.faa.dmnd --min_orf_length 72 --singlem-packages `ls -d /pkgs/*spkg` --diamond-package-assignment --no-assign-taxonomy --working-directory-tmpdir; \n ls -la"
             ],
             "mounts":{
                "disk":"dataDisk",
@@ -21,7 +21,7 @@
             "commands":[
                "/bin/bash",
                "-c",
-               "/opt/conda/envs/env/bin/time /singlem/bin/singlem renew --min_orf_length 72 --input-archive-otu-table $SRA_ACCESSION_NUM.unannotated.singlem.json --singlem-packages `ls -d /pkgs/*spkg` --archive-otu-table $SRA_ACCESSION_NUM.singlem.json --assignment-method diamond --diamond-taxonomy-assignment-performance-parameters '--block-size 0.5 --target-indexed -c1'; \n gzip $SRA_ACCESSION_NUM.singlem.json"
+               "cd /mnt/data; \n /opt/conda/envs/env/bin/time /singlem/bin/singlem renew --min_orf_length 72 --input-archive-otu-table $SRA_ACCESSION_NUM.unannotated.singlem.json --singlem-packages `ls -d /pkgs/*spkg` --archive-otu-table $SRA_ACCESSION_NUM.singlem.json --assignment-method diamond --diamond-taxonomy-assignment-performance-parameters '--block-size 0.5 --target-indexed -c1'; \n gzip $SRA_ACCESSION_NUM.singlem.json"
             ],
             "mounts":{
                "disk":"dataDisk",
