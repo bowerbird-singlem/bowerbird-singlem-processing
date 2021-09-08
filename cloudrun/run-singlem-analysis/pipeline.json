@@ -35,7 +35,7 @@
             "commands":[
                "/bin/bash",
                "-c",
-               "gsutil -m cp /mnt/data/$SRA_ACCESSION_NUM.singlem.json $OUTPUT_DIR"
+               "gsutil -m cp /mnt/data/$SRA_ACCESSION_NUM.singlem.json.gz $OUTPUT_DIR"
             ],
             "mounts":{
                "disk":"dataDisk",
