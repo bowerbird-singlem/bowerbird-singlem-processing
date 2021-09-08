@@ -21,7 +21,7 @@
             "us-central1"
          ],
          "virtualMachine":{
-            "machineType":"n1-custom-1-2048",
+            "machineType":"n1-custom-1-4096",
             "enableStackdriverMonitoring":true,
             "serviceAccount":{
                "email":"bb-singlem-proc-ls-executor@maximal-dynamo-308105.iam.gserviceaccount.com"
