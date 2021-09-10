@@ -63,7 +63,7 @@ substitutions:
   _REPOSITORY_BASE_URL: docker.pkg.dev
   _REPOSITORY: bowerbird-singlem-processing 
   _REGION: us-central1
-  _INFRA_ACTION: deploy
+  _INFRA_ACTION: remove
   _SERVICE: get-new-sra-runs
 options:
   substitution_option: 'ALLOW_LOOSE'
