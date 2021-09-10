@@ -47,7 +47,7 @@ def index():
             run_pipeline_request_body = json.load(f)
    
         run_pipeline_request_body["pipeline"]["environment"]["SRA_ACCESSION_NUM"] = acc
-        run_pipeline_request_body["pubSubTopic"] = "bb-singlem-processing-run-singlem-analysis-requests"
+        run_pipeline_request_body["pubSubTopic"] = "projects/maximal-dynamo-308105/topics/bb-singlem-processing-run-singlem-analysis-requests"
 
         ls_request = service.projects().locations().pipelines().run(parent=parent, body=run_pipeline_request_body)
         response = ls_request.execute()
