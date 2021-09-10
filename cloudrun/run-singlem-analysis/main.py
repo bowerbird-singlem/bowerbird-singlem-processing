@@ -25,28 +25,37 @@ def index():
         print(f"error: {msg}")
         return f"Bad Request: {msg}", 400
 
+    acc = None
     acc = envelope.get('message', '').get('attributes', '').get('accession', '')
+    print("acc")
+    print(acc)
+
+    if acc == None:
+        done = envelope.get('done', '')
+        print("done")
+        print(done)
 
     #if isinstance(pubsub_message, dict) and "data" in pubsub_message:
     #    name = base64.b64decode(pubsub_message["accession"]).decode("utf-8").strip()
 
-    credentials = GoogleCredentials.get_application_default()
-    service = discovery.build('lifesciences', 'v2beta', credentials=credentials)
-    parent = 'projects/maximal-dynamo-308105/locations/us-central1'
+    if acc != None:
+        credentials = GoogleCredentials.get_application_default()
+        service = discovery.build('lifesciences', 'v2beta', credentials=credentials)
+        parent = 'projects/maximal-dynamo-308105/locations/us-central1'
 
-    with open(os.path.join(sys.path[0], "pipeline.json"), "r") as f:
-        run_pipeline_request_body = json.load(f)
-    
-    run_pipeline_request_body["pipeline"]["environment"]["SRA_ACCESSION_NUM"] = acc
+        with open(os.path.join(sys.path[0], "pipeline.json"), "r") as f:
+            run_pipeline_request_body = json.load(f)
+   
+        run_pipeline_request_body["pipeline"]["environment"]["SRA_ACCESSION_NUM"] = acc
+        run_pipeline_request_body["pubSubTopic"] = "bb-singlem-processing-run-singlem-analysis-requests"
 
-    ls_request = service.projects().locations().pipelines().run(parent=parent, body=run_pipeline_request_body)
-    response = ls_request.execute()
+        ls_request = service.projects().locations().pipelines().run(parent=parent, body=run_pipeline_request_body)
+        response = ls_request.execute()
 
-    #print(f"SRA Accession: {response["metadata"]["pipeline"]["environment"]["SRA_ACCESSION_NUM"]}")
-    pprint(response["name"])
+        #print(f"SRA Accession: {response["metadata"]["pipeline"]["environment"]["SRA_ACCESSION_NUM"]}")
+        pprint(response["name"])
     
     return ("", 204)
-
 
 if __name__ == "__main__":
     PORT = int(os.getenv("PORT")) if os.getenv("PORT") else 8080
