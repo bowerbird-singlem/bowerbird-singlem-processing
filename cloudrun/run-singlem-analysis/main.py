@@ -26,6 +26,10 @@ def new_task():
         print(f"error: {msg}")
         return f"Bad Request: {msg}", 400
 
+    acc = envelope.get('message', {}).get('attributes', {}).get('accession')
+    print("acc")
+    print(acc)
+
     credentials = GoogleCredentials.get_application_default()
     service = discovery.build('lifesciences', 'v2beta', credentials=credentials)
     parent = 'projects/maximal-dynamo-308105/locations/us-central1'
