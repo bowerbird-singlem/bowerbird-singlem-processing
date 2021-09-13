@@ -6,6 +6,14 @@ resource "google_pubsub_topic" "run_singlem_analysis_requests" {
   ]
 }
 
+resource "google_pubsub_topic" "run_singlem_analysis_updates" {
+  name = "bb-singlem-processing-run-singlem-analysis-updates"
+  project = var.project
+  depends_on = [
+    google_project_service.pubsub-gcp-service,
+  ]
+}
+
 resource "google_service_account" "run_singlem_analysis_executor" {
   account_id   = "bb-sing-proc-run-singlem"
   project = var.project
@@ -88,7 +96,7 @@ resource "google_pubsub_subscription" "run_singlem_analysis_requests_subscriptio
 
 resource "google_pubsub_subscription" "run_singlem_analysis_updates_subscription" {
   name  = "bb-singlem-processing-run-singlem-analysis-updates-subscription"
-  topic = google_pubsub_topic.run_singlem_analysis_requests.name
+  topic = google_pubsub_topic.run_singlem_analysis_updates.name
 
   ack_deadline_seconds = 20
 
