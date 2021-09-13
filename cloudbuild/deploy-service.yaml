@@ -45,6 +45,7 @@ steps:
   args: 
   - '-c'
   - | 
+        export TF_VAR_project=$PROJECT_ID
         cd terraform/postbuild 
         terraform init
         terraform workspace select postbuild || terraform workspace new postbuild 
@@ -59,11 +60,12 @@ steps:
   - 'TF_VAR_infra_action=${_INFRA_ACTION}'
   - 'TF_VAR_repository=${_REPOSITORY}'
   - 'TF_VAR_service=${_SERVICE}'
+  - 'TF_VAR_region=${_REGION}'
 substitutions:  
   _REPOSITORY_BASE_URL: docker.pkg.dev
   _REPOSITORY: bowerbird-singlem-processing 
   _REGION: us-central1
-  _INFRA_ACTION: remove
+  _INFRA_ACTION: deploy
   _SERVICE: get-new-sra-runs
 options:
   substitution_option: 'ALLOW_LOOSE'
