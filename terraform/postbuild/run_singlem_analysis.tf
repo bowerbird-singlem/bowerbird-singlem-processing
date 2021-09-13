@@ -51,7 +51,8 @@ resource "google_cloud_run_service" "run_singlem_analysis" {
       annotations = {
         "autoscaling.knative.dev/maxScale" = "1"
       }
-  }
+    }
+}
 
   traffic {
     percent         = 100
