@@ -25,10 +25,16 @@ resource "google_cloud_run_service" "get_new_sra_runs" {
 
   template {
     spec {
+      container_concurrency = 1  
       containers {
         image = "us-central1-docker.pkg.dev/maximal-dynamo-308105/${var.repository}/get-new-sra-runs"
       }
       service_account_name = "${google_service_account.get_new_sra_runs_executor.email}"
+    }
+    metadata {
+      annotations = {
+        "autoscaling.knative.dev/maxScale" = "1"
+      }
     }
   }
 
