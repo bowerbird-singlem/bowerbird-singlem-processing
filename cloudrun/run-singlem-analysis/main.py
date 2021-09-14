@@ -41,7 +41,7 @@ def new_task():
     except ValidationError as err:
         return jsonify(err.messages), 400
 
-    print(result) 
+    print(valid_request_data) 
 
     acc = valid_request_data.get('accession')
     print("acc")
