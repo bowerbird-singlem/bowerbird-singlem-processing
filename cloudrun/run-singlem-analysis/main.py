@@ -15,7 +15,7 @@ from marshmallow import Schema, fields, ValidationError
 app = Flask(__name__)
 
 class CreateTaskRunInputSchema(Schema):
-    accession = fields.Str(required=True)
+    message.attributes.accession = fields.Str(required=True)
 
 @app.route("/newtask", methods=["POST"])
 def new_task():
