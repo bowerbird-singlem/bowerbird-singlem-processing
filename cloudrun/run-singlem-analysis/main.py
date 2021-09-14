@@ -8,42 +8,58 @@ from pprint import pprint
 from googleapiclient import discovery
 from oauth2client.client import GoogleCredentials
 
-from flask import Flask, request
+from flask import Flask, request, jsonify
+from marshmallow import Schema, fields, ValidationError
+
 
 app = Flask(__name__)
 
+class CreateTaskRunInputSchema(Schema):
+    accession = fields.Str(required=True)
+
 @app.route("/newtask", methods=["POST"])
 def new_task():
-    
-    envelope = request.get_json()
-    if not envelope:
+
+    # get request
+    request_data = request.get_json() 
+
+    if not request_data:
         msg = "no Pub/Sub message received"
         print(f"error: {msg}")
         return f"Bad Request: {msg}", 400
 
-    if not isinstance(envelope, dict) or "message" not in envelope:
+    if not isinstance(request_data, dict) or "message" not in request_data:
         msg = "invalid Pub/Sub message format"
         print(f"error: {msg}")
         return f"Bad Request: {msg}", 400
 
-    acc = envelope.get('message', {}).get('attributes', {}).get('accession')
-    print("acc")
-    print(acc)
+    # validate request 
+    task_run_schema = CreateTaskRunInputSchema() 
+    try:
+        result = schema.load(request_data)
+    except ValidationError as err:
+        return jsonify(err.messages), 400
 
-    credentials = GoogleCredentials.get_application_default()
-    service = discovery.build('lifesciences', 'v2beta', credentials=credentials)
-    parent = 'projects/maximal-dynamo-308105/locations/us-central1'
+    print(result) 
 
-    with open(os.path.join(sys.path[0], "pipeline.json"), "r") as f:
-        run_pipeline_request_body = json.load(f)
-
-    run_pipeline_request_body["pipeline"]["environment"]["SRA_ACCESSION_NUM"] = acc
-    run_pipeline_request_body["pubSubTopic"] = "projects/maximal-dynamo-308105/topics/bb-singlem-processing-run-singlem-analysis-updates"
-
-    ls_request = service.projects().locations().pipelines().run(parent=parent, body=run_pipeline_request_body)
-    response = ls_request.execute()
-
-    pprint(response["name"])
+#    acc = request_data.get('message', {}).get('attributes', {}).get('accession')
+#    print("acc")
+#    print(acc)
+#
+#    credentials = GoogleCredentials.get_application_default()
+#    service = discovery.build('lifesciences', 'v2beta', credentials=credentials)
+#    parent = 'projects/maximal-dynamo-308105/locations/us-central1'
+#
+#    with open(os.path.join(sys.path[0], "pipeline.json"), "r") as f:
+#        run_pipeline_request_body = json.load(f)
+#
+#    run_pipeline_request_body["pipeline"]["environment"]["SRA_ACCESSION_NUM"] = acc
+#    run_pipeline_request_body["pubSubTopic"] = "projects/maximal-dynamo-308105/topics/bb-singlem-processing-run-singlem-analysis-updates"
+#
+#    ls_request = service.projects().locations().pipelines().run(parent=parent, body=run_pipeline_request_body)
+#    response = ls_request.execute()
+#
+#    print(response["name"])
     
     time.sleep(10)
     print("sleep done")
@@ -64,7 +80,7 @@ def task_update():
         print(f"error: {msg}")
         return f"Bad Request: {msg}", 400
 
-    done = envelope.get('done', '')
+#    done = envelope.get('done', '')
     print("done")
     print(done)
 
