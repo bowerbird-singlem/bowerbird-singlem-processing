@@ -90,7 +90,7 @@ def task_update():
 
 #    done = envelope.get('done', '')
     print("done")
-    print(done)
+#    print(done)
 
     return ("", 204)
 
