@@ -15,7 +15,7 @@ from marshmallow import Schema, fields, ValidationError
 app = Flask(__name__)
 
 class CreateTaskRunInputSchema(Schema):
-    message.attributes.accession = fields.Str(required=True)
+    accession = fields.Str(required=True)
 
 @app.route("/newtask", methods=["POST"])
 def new_task():
@@ -37,7 +37,7 @@ def new_task():
     # validate request 
     task_run_schema = CreateTaskRunInputSchema() 
     try:
-        result = task_run_schema.load(request_data)
+        result = task_run_schema.load(request_data['message']['attributes'])
     except ValidationError as err:
         return jsonify(err.messages), 400
 
