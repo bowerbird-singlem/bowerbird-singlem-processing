@@ -43,27 +43,27 @@ def new_task():
 
     print(result) 
 
-#    acc = request_data.get('message', {}).get('attributes', {}).get('accession')
-#    print("acc")
-#    print(acc)
-#
-#    credentials = GoogleCredentials.get_application_default()
-#    service = discovery.build('lifesciences', 'v2beta', credentials=credentials)
-#    parent = 'projects/maximal-dynamo-308105/locations/us-central1'
-#
-#    with open(os.path.join(sys.path[0], "pipeline.json"), "r") as f:
-#        run_pipeline_request_body = json.load(f)
-#
-#    run_pipeline_request_body["pipeline"]["environment"]["SRA_ACCESSION_NUM"] = acc
-#    run_pipeline_request_body["pubSubTopic"] = "projects/maximal-dynamo-308105/topics/bb-singlem-processing-run-singlem-analysis-updates"
-#
-#    ls_request = service.projects().locations().pipelines().run(parent=parent, body=run_pipeline_request_body)
-#    response = ls_request.execute()
-#
-#    print(response["name"])
+    acc = request_data.get('accession')
+    print("acc")
+    print(acc)
+
+    credentials = GoogleCredentials.get_application_default()
+    service = discovery.build('lifesciences', 'v2beta', credentials=credentials)
+    parent = 'projects/maximal-dynamo-308105/locations/us-central1'
+
+    with open(os.path.join(sys.path[0], "pipeline.json"), "r") as f:
+        run_pipeline_request_body = json.load(f)
+
+    run_pipeline_request_body["pipeline"]["environment"]["SRA_ACCESSION_NUM"] = acc
+    run_pipeline_request_body["pubSubTopic"] = "projects/maximal-dynamo-308105/topics/bb-singlem-processing-run-singlem-analysis-updates"
+
+    ls_request = service.projects().locations().pipelines().run(parent=parent, body=run_pipeline_request_body)
+    response = ls_request.execute()
+
+    print(response["name"])
     
     i = 0
-    t_end = time.time() + 5
+    t_end = time.time() + 15
     while time.time() < t_end:
             i = i+1
     print(i)        
@@ -74,6 +74,9 @@ def new_task():
 
 @app.route("/taskupdate", methods=["POST"])
 def task_update(): 
+
+    print("task update processing started")
+
     envelope = request.get_json()
     if not envelope:
         msg = "no Pub/Sub message received"

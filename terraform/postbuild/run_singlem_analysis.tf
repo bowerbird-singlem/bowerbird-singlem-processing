@@ -103,7 +103,7 @@ resource "google_pubsub_subscription" "run_singlem_analysis_updates_subscription
 
   push_config {
 
-    push_endpoint = "${google_cloud_run_service.run_singlem_analysis.status[0].url}/taskupdates"
+    push_endpoint = "${google_cloud_run_service.run_singlem_analysis.status[0].url}/taskupdate"
     oidc_token {
       service_account_email = google_service_account.cloudrun_invoker.email
     }
