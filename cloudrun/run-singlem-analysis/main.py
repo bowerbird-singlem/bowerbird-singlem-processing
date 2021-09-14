@@ -2,7 +2,8 @@ import os
 import base64
 import json
 import sys
-import time
+#import time
+import asyncio
 from pprint import pprint
 
 from googleapiclient import discovery
@@ -61,7 +62,7 @@ def new_task():
 #
 #    print(response["name"])
     
-    time.sleep(10)
+    asyncio.sleep(10)
     print("sleep done")
 
     return ("", 204)
@@ -84,7 +85,7 @@ def task_update():
     print("done")
     print(done)
 
-    time.sleep(10)
+    asyncio.sleep(10)
     print("sleep done")
 
     return ("", 204)
