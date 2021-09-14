@@ -37,7 +37,7 @@ def new_task():
     # validate request 
     task_run_schema = CreateTaskRunInputSchema() 
     try:
-        result = schema.load(request_data)
+        result = task_run_schema.load(request_data)
     except ValidationError as err:
         return jsonify(err.messages), 400
 
