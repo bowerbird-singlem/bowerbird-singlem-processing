@@ -2,8 +2,7 @@ import os
 import base64
 import json
 import sys
-#import time
-import asyncio
+import time
 from pprint import pprint
 
 from googleapiclient import discovery
@@ -21,6 +20,7 @@ class CreateTaskRunInputSchema(Schema):
 @app.route("/newtask", methods=["POST"])
 def new_task():
 
+    print("new task processing started")
     # get request
     request_data = request.get_json() 
 
@@ -62,9 +62,13 @@ def new_task():
 #
 #    print(response["name"])
     
-    asyncio.sleep(10)
+    i = 0
+    t_end = time.time() + 5
+    while time.time() < t_end:
+            i = i+1
+    print(i)        
     print("sleep done")
-
+    
     return ("", 204)
 
 
@@ -84,9 +88,6 @@ def task_update():
 #    done = envelope.get('done', '')
     print("done")
     print(done)
-
-    asyncio.sleep(10)
-    print("sleep done")
 
     return ("", 204)
 
