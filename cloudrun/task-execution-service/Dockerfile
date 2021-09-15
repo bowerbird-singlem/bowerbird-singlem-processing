@@ -15,7 +15,7 @@ RUN pip install -r requirements.txt
 # Copy local code to the container image.
 ENV APP_HOME /app
 WORKDIR $APP_HOME
-COPY cloudrun/run-singlem-analysis/ ./
+COPY cloudrun/task-execution-service/ ./
 
 # Run the web service on container startup.
 # Use gunicorn webserver with one worker process and 8 threads.
