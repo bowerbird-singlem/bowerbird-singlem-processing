@@ -64,9 +64,9 @@ resource "google_cloud_run_service" "task_execution_service" {
 }
 
 resource "google_cloud_run_service_iam_binding" "task_execution_binding" {
-  location = google_cloud_run_service.task_execution.location
-  project = google_cloud_run_service.task_execution.project
-  service = google_cloud_run_service.task_execution.name
+  location = google_cloud_run_service.task_execution_service.location
+  project = google_cloud_run_service.task_execution_service.project
+  service = google_cloud_run_service.task_execution_service.name
   role = "roles/run.invoker"
   members  = concat(var.members, ["serviceAccount:${google_service_account.cloudrun_invoker.email}"])
   depends_on = [
