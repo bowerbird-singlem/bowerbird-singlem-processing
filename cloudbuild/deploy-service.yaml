@@ -52,7 +52,7 @@ steps:
         terraform init
         if [ $_INFRA_ACTION = 'deploy' ]; then
             terraform apply -auto-approve -replace="google_cloud_run_service.get_new_sra_runs"
-            terraform apply -auto-approve -replace="google_cloud_run_service.run_singlem_analysis"
+            terraform apply -auto-approve -replace="google_cloud_run_service.task_execution_service"
         else
             terraform destroy -auto-approve
         fi
@@ -63,7 +63,7 @@ steps:
   - 'TF_VAR_region=${_REGION}'
 substitutions:  
   _REPOSITORY_BASE_URL: docker.pkg.dev
-  _REPOSITORY: bowerbird-singlem-processing 
+  _REPOSITORY: bowerbird-core 
   _REGION: us-central1
   _INFRA_ACTION: deploy
   _SERVICE: get-new-sra-runs
