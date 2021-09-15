@@ -7,7 +7,7 @@ ENV PYTHONUNBUFFERED True
 
 # Copy application dependency manifests to the container image.
 # Copying this separately prevents re-running pip install on every code change.
-COPY cloudrun/run-singlem-analysis/requirements.txt ./
+COPY cloudrun/task-execution-service/requirements.txt ./
 
 # Install production dependencies.
 RUN pip install -r requirements.txt
