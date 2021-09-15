@@ -81,7 +81,7 @@ resource "google_pubsub_subscription" "task_execution_requests_subscription" {
   ack_deadline_seconds = 20
 
   push_config {
-    push_endpoint = "${google_cloud_run_service.task_execution.status[0].url}/newtask"
+    push_endpoint = "${google_cloud_run_service.task_execution_service.status[0].url}/newtask"
     oidc_token {
       service_account_email = google_service_account.cloudrun_invoker.email
     }
@@ -103,7 +103,7 @@ resource "google_pubsub_subscription" "task_execution_updates_subscription" {
 
   push_config {
 
-    push_endpoint = "${google_cloud_run_service.task_execution.status[0].url}/taskupdate"
+    push_endpoint = "${google_cloud_run_service.task_execution_service.status[0].url}/taskupdate"
     oidc_token {
       service_account_email = google_service_account.cloudrun_invoker.email
     }
