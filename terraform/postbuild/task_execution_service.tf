@@ -35,7 +35,7 @@ resource "google_service_account_iam_binding" "task_execution_executor_can_imper
   ]
 }
 
-resource "google_cloud_run_service" "task_execution" {
+resource "google_cloud_run_service" "task_execution_service" {
   name     = "bb-core-task-execution"
   location = var.region
 
