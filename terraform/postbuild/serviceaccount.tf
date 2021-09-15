@@ -1,10 +1,10 @@
 resource "google_service_account" "cloudrun_invoker" {
-  account_id   = "bb-singlem-proc-cr-invoker"
+  account_id   = "bb-core-cr-invoker"
   project = var.project
 }
 
 resource "google_service_account" "lifesciences_executor" {
-  account_id   = "bb-singlem-proc-ls-executor"
+  account_id   = "bb-core-ls-executor"
   project = var.project
 }
 
