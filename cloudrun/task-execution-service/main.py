@@ -78,7 +78,7 @@ def task_update():
     print("task update processing started")
 
     # get request
-    #request_data = request.get_json() 
+    request_data = request.form
 
     if not request_data:
         msg = "no Pub/Sub message received"
@@ -89,6 +89,8 @@ def task_update():
         msg = "invalid Pub/Sub message format"
         print(f"error: {msg}")
         return f"Bad Request: {msg}", 400
+    
+    #request_data = request.form['done']
     
     i = 0
     t_end = time.time() + 5
