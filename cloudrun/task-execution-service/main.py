@@ -80,22 +80,13 @@ def task_update():
     # get request
     request_data = request.data
 
+    json_req = json.load(request_data)
+    print(json_req)
+
     if not request_data:
         msg = "no Pub/Sub message received"
         print(f"error: {msg}")
         return f"Bad Request: {msg}", 400
-
-#    if not isinstance(request_data, dict) or "message" not in request_data:
-#        msg = "invalid Pub/Sub message format"
-#        print(f"error: {msg}")
-#        return f"Bad Request: {msg}", 400
-    
-    print(request.args)
-    print(request.form)
-    print(request.files)
-    print(request_data)
-    print(request.values)
-    print(request.get_data())
 
     i = 0
     t_end = time.time() + 5
