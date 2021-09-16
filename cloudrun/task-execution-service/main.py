@@ -90,8 +90,12 @@ def task_update():
 #        print(f"error: {msg}")
 #        return f"Bad Request: {msg}", 400
     
-    print(request_data)
+    print(request.args)
+    print(request.form)
     print(request.files)
+    print(request_data)
+    print(request.values)
+    print(request.get_data())
 
     i = 0
     t_end = time.time() + 5
