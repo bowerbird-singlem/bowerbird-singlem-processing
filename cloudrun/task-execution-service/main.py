@@ -80,8 +80,8 @@ def task_update():
     # get request
     request_data = request.data
     type(request_data)
-    #json_req = json.load(request_data.decode('utf-8'))
-    #print(json_req)
+    json_req = json.loads(request_data.decode('utf-8'))
+    print(json_req)
 
     if not request_data:
         msg = "no Pub/Sub message received"
