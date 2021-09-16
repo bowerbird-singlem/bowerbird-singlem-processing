@@ -77,20 +77,27 @@ def task_update():
 
     print("task update processing started")
 
-    envelope = request.get_json()
-    if not envelope:
+    # get request
+    #request_data = request.get_json() 
+
+    if not request_data:
         msg = "no Pub/Sub message received"
         print(f"error: {msg}")
         return f"Bad Request: {msg}", 400
 
-    if not isinstance(envelope, dict) or "message" not in envelope:
+    if not isinstance(request_data, dict) or "message" not in request_data:
         msg = "invalid Pub/Sub message format"
         print(f"error: {msg}")
         return f"Bad Request: {msg}", 400
-
-#    done = envelope.get('done', '')
+    
+    i = 0
+    t_end = time.time() + 5
+    while time.time() < t_end:
+        i = i+1
+    print(i)        
+    print("sleep done")
+    
     print("done")
-#    print(done)
 
     return ("", 204)
 
