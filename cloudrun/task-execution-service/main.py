@@ -91,7 +91,8 @@ def task_update():
 #        return f"Bad Request: {msg}", 400
     
     print(request_data)
-    
+    print(request.files)
+
     i = 0
     t_end = time.time() + 5
     while time.time() < t_end:
