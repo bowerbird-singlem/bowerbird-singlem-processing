@@ -85,12 +85,12 @@ def task_update():
         print(f"error: {msg}")
         return f"Bad Request: {msg}", 400
 
-    if not isinstance(request_data, dict) or "message" not in request_data:
-        msg = "invalid Pub/Sub message format"
-        print(f"error: {msg}")
-        return f"Bad Request: {msg}", 400
+#    if not isinstance(request_data, dict) or "message" not in request_data:
+#        msg = "invalid Pub/Sub message format"
+#        print(f"error: {msg}")
+#        return f"Bad Request: {msg}", 400
     
-    request_data = request.form.get('done')
+    print(request_data)
     
     i = 0
     t_end = time.time() + 5
