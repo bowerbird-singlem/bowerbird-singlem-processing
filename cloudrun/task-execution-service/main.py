@@ -78,7 +78,7 @@ def task_update():
     print("task update processing started")
 
     # get request
-    request_data = request.form
+    request_data = request.data
 
     if not request_data:
         msg = "no Pub/Sub message received"
