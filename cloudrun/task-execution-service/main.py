@@ -57,7 +57,7 @@ def new_task():
     run_pipeline_request_body["pipeline"]["environment"]["SRA_ACCESSION_NUM"] = acc
     run_pipeline_request_body["pubSubTopic"] = "projects/maximal-dynamo-308105/topics/bb-core-task-execution-updates"
 
-    ls_request = service.projects().locations().pipelines().run(name=parent, body=run_pipeline_request_body)
+    ls_request = service.projects().locations().pipelines().run(parent=parent, body=run_pipeline_request_body)
     response = ls_request.execute()
 
     print(response["name"])
