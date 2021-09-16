@@ -90,7 +90,7 @@ def task_update():
         print(f"error: {msg}")
         return f"Bad Request: {msg}", 400
     
-    #request_data = request.form['done']
+    request_data = request.form.get('done')
     
     i = 0
     t_end = time.time() + 5
