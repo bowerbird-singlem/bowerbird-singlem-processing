@@ -3,6 +3,7 @@ import base64
 import json
 import sys
 import time
+import url
 from pprint import pprint
 
 from googleapiclient import discovery
@@ -87,6 +88,14 @@ def task_update():
         msg = "no Pub/Sub message received"
         print(f"error: {msg}")
         return f"Bad Request: {msg}", 400
+ 
+    credentials = GoogleCredentials.get_application_default()
+    service = discovery.build('lifesciences', 'v2beta', credentials=credentials)
+    parent = json_req['message']['attributes']['operation'] 
+
+    ls_request = service.projects().locations().operations().get(parent=parent)
+    print(ls_request)
+
 
     i = 0
     t_end = time.time() + 5
