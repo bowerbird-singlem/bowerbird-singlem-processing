@@ -93,7 +93,8 @@ def task_update():
     parent = json_req['message']['attributes']['operation'] 
 
     ls_request = service.projects().locations().operations().get(name=parent)
-    print(ls_request)
+    response = ls_request.execute()
+    print(response)
 
 
     i = 0
