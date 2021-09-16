@@ -3,7 +3,6 @@ import base64
 import json
 import sys
 import time
-import url
 from pprint import pprint
 
 from googleapiclient import discovery
