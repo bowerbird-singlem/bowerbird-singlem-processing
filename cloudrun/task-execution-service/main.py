@@ -4,7 +4,7 @@ import json
 import sys
 import time
 from pprint import pprint
-#from google.cloud import storage
+from google.cloud import storage
 
 from googleapiclient import discovery
 from oauth2client.client import GoogleCredentials
