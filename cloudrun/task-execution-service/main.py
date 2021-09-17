@@ -7,6 +7,7 @@ from pprint import pprint
 from google.cloud import storage
 
 from googleapiclient import discovery
+from googleapiclient import errors
 from oauth2client.client import GoogleCredentials
 
 from flask import Flask, request, jsonify
@@ -78,7 +79,8 @@ def new_task():
     response = ls_request.execute()
 
     print(response["name"])
-    
+
+
     i = 0
     t_end = time.time() + 15
     while time.time() < t_end:
@@ -109,10 +111,17 @@ def task_update():
     service = discovery.build('lifesciences', 'v2beta', credentials=credentials)
     parent = json_req['message']['attributes']['operation'] 
 
-    ls_request = service.projects().locations().operations().get(name=parent)
-    response = ls_request.execute()
-    print(response)
+    #ls_request = service.projects().locations().operations().get(name=parent)
+    #response = ls_request.execute()
+    #print(response)
 
+    try:
+        ls_request = service.projects().locations().operations().get(name=parent)
+        response = ls_request.execute()
+        print(response)
+    except errors.HttpError, err:
+    	print('There was an error retrieving the update status. Check the details:')
+    	print(err._get_reason())
 
     i = 0
     t_end = time.time() + 5
