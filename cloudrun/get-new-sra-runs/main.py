@@ -26,13 +26,13 @@ def index():
         future = publisher.publish("projects/maximal-dynamo-308105/topics/bb-core-task-execution-requests", 
                 b'test', 
                 SRA_ACCESSION_NUM=row.acc,
-                MBASES = row.mbases,
-                MBYTES = row.mbytes,
+                MBASES = str(row.mbases),
+                MBYTES = str(row.mbytes),
                 TASK_NAME = "singlem",
                 TASK_WORKFLOW_SCRIPT_PATH = "gs://maximal-dynamo-308105-bowerbird/tasks/singlem/pipeline.json",
                 TASK_OUTPUT_PATH = "gs://maximal-dynamo-308105-bowerbird/outputs/singlem",
-                TASK_ATTEMPTS_SO_FAR = "0",
-                TASK_MAX_ATTEMPTS = "1"
+                TASK_ATTEMPTS_SO_FAR = str(0),
+                TASK_MAX_ATTEMPTS = str(1)
                 )
         future.result()
     return ("", 204)
