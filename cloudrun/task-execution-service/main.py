@@ -119,7 +119,7 @@ def task_update():
         ls_request = service.projects().locations().operations().get(name=parent)
         response = ls_request.execute()
         print(response)
-    except errors.HttpError, err:
+    except errors.HttpError as err:
     	print('There was an error retrieving the update status. Check the details:')
     	print(err._get_reason())
 
