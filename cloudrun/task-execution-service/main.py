@@ -61,7 +61,7 @@ def new_task():
     blob = bucket.blob("tasks/singlem/pipeline.json")
     pipeline_imported = blob.download_as_string()
     pipeline_imported_json = json.loads(pipeline_imported)
-    print(pipeline_imported_json['pipeline']['timeout']
+    print(pipeline_imported_json['pipeline']['timeout'])
 
     #send lifesciences api request
     credentials = GoogleCredentials.get_application_default()
