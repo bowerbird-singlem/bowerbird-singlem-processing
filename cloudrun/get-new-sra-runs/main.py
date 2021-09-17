@@ -29,10 +29,10 @@ def index():
                 MBASES = row.mbases,
                 MBYTES = row.mbytes,
                 TASK_NAME = "singlem",
-                TASK_WORKFLOW_SCRIPT_PATH = "gs://bowerbird/workflows/singlem/pipeline.json",
-                TASK_OUTPUT_PATH = "gs://bowerbird/workflows/singlem/outputs",
-                TASK_ATTEMPTS_SO_FAR = 0,
-                TASK_MAX_ATTEMPTS = 1
+                TASK_WORKFLOW_SCRIPT_PATH = "gs://maximal-dynamo-308105-bowerbird/tasks/singlem/pipeline.json",
+                TASK_OUTPUT_PATH = "gs://maximal-dynamo-308105-bowerbird/outputs/singlem",
+                TASK_ATTEMPTS_SO_FAR = "0",
+                TASK_MAX_ATTEMPTS = "1"
                 )
         future.result()
     return ("", 204)
