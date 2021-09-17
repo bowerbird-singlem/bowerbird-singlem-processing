@@ -4,7 +4,7 @@ import json
 import sys
 import time
 from pprint import pprint
-from google.cloud import storage
+#from google.cloud import storage
 
 from googleapiclient import discovery
 from oauth2client.client import GoogleCredentials
@@ -55,13 +55,13 @@ def new_task():
     print("acc")
     print(acc)
 
-    # get pipeline template
-    storage_client = storage.Client()
-    bucket = storage_client.bucket("maximal-dynamo-308105-bowerbird")
-    blob = bucket.blob("tasks/singlem/pipeline.json")
-    pipeline_imported = blob.download_as_string()
-    pipeline_imported_json = json.loads(pipeline_imported)
-    print(pipeline_imported_json['pipeline']['timeout'])
+#    # get pipeline template
+#    storage_client = storage.Client()
+#    bucket = storage_client.bucket("maximal-dynamo-308105-bowerbird")
+#    blob = bucket.blob("tasks/singlem/pipeline.json")
+#    pipeline_imported = blob.download_as_string()
+#    pipeline_imported_json = json.loads(pipeline_imported)
+#    print(pipeline_imported_json)
 
     #send lifesciences api request
     credentials = GoogleCredentials.get_application_default()
