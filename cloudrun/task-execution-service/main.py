@@ -18,8 +18,8 @@ class CreateTaskRunInputSchema(Schema):
     TASK_NAME = fields.Str(required=True)
     TASK_WORKFLOW_SCRIPT_PATH = fields.Str(required=True)
     TASK_OUTPUT_PATH = fields.Str(required=True)
-    TASK_ATTEMPTS_SO_FAR = fields.Int(required=True) 
-    TAX_MAX_ATTEMPTS = fields.Int(required=True)
+    TASK_ATTEMPTS_SO_FAR = fields.Str(required=True) 
+    TAX_MAX_ATTEMPTS = fields.Str(required=True)
 
 @app.route("/newtask", methods=["POST"])
 def new_task():
