@@ -43,9 +43,8 @@ def new_task():
     try:
         valid_request_data = task_run_schema.load(request_data['message']['attributes'])
     except ValidationError as err:
-        #return jsonify(err.messages), 400
-        print("validation error")
-        return err.messages, 400
+        print(err.messages)
+        return "validation error", 400
 
     print(valid_request_data) 
 
