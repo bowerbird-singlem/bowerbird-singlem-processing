@@ -5,6 +5,7 @@ import sys
 import time
 from pprint import pprint
 from google.cloud import storage
+import jsone
 
 from googleapiclient import discovery
 from googleapiclient import errors
@@ -63,6 +64,11 @@ def new_task():
     pipeline_imported = blob.download_as_string()
     pipeline_imported_json = json.loads(pipeline_imported)
     print(pipeline_imported_json)
+
+    # prep template
+    json_output = jsone.render(pipeline_imported_json, valid_request_data)
+    print(json_output)
+    
 
     #send lifesciences api request
     credentials = GoogleCredentials.get_application_default()
