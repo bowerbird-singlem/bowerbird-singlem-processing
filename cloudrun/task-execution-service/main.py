@@ -64,7 +64,7 @@ def new_task():
         valid_request_data['TASK_ATTEMPTS_SO_FAR'] = int(valid_request_data['TASK_ATTEMPTS_SO_FAR']) + 1
         pass
     else:
-        return "return "too many restarts", 204
+        return "too many restarts", 204
 
     # get pipeline template
     storage_client = storage.Client()
