@@ -114,7 +114,7 @@ def task_update():
     #print(response)
 
     try:
-        status_request = service.projects().locations().operations().get(name=operation_path)
+        status_request = lifesciences_service.projects().locations().operations().get(name=operation_path)
         status_response = status_request.execute()
         print(status_response)
     except errors.HttpError as err:
