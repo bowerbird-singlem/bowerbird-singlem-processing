@@ -66,8 +66,8 @@ def new_task():
     print(pipeline_imported_json)
 
     # prep template
-    json_output = jsone.render(pipeline_imported_json, valid_request_data)
-    print(json_output)
+    pipeline_prepped_json = jsone.render(pipeline_imported_json, valid_request_data)
+    print(pipeline_prepped_json)
     
 
     #send lifesciences api request
@@ -75,13 +75,13 @@ def new_task():
     service = discovery.build('lifesciences', 'v2beta', credentials=credentials)
     parent = 'projects/maximal-dynamo-308105/locations/us-central1'
 
-    with open(os.path.join(sys.path[0], "pipeline.json"), "r") as f:
-        run_pipeline_request_body = json.load(f)
+    #with open(os.path.join(sys.path[0], "pipeline.json"), "r") as f:
+    #    run_pipeline_request_body = json.load(f)
 
-    run_pipeline_request_body["pipeline"]["environment"]["SRA_ACCESSION_NUM"] = acc
-    run_pipeline_request_body["pubSubTopic"] = "projects/maximal-dynamo-308105/topics/bb-core-task-execution-updates"
+    #run_pipeline_request_body["pipeline"]["environment"]["SRA_ACCESSION_NUM"] = acc
+    pipeline_prepped_json["pubSubTopic"] = "projects/maximal-dynamo-308105/topics/bb-core-task-execution-updates"
 
-    run_request = service.projects().locations().pipelines().run(parent=parent, body=run_pipeline_request_body)
+    run_request = service.projects().locations().pipelines().run(parent=parent, body=pipeline_prepped_json)
     run_request_response = run_request.execute()
     print(run_request_response["name"])
 
