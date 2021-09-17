@@ -9,7 +9,7 @@ from googleapiclient import discovery
 from oauth2client.client import GoogleCredentials
 
 from flask import Flask, request, jsonify
-from marshmallow import Schema, fields, ValidationError
+from marshmallow import Schema, fields, ValidationError, INCLUDE
 
 
 app = Flask(__name__)
@@ -20,6 +20,8 @@ class CreateTaskRunInputSchema(Schema):
     TASK_OUTPUT_PATH = fields.Str(required=True)
     TASK_ATTEMPTS_SO_FAR = fields.Str(required=True) 
     TASK_MAX_ATTEMPTS = fields.Str(required=True)
+    class Meta:
+        unknown = INCLUDE
 
 @app.route("/newtask", methods=["POST"])
 def new_task():
@@ -41,7 +43,7 @@ def new_task():
     # validate request 
     task_run_schema = CreateTaskRunInputSchema() 
     try:
-        valid_request_data = task_run_schema.load(request_data['message']['attributes'])
+        valid_request_data = task_run_schema.load(request_data['message']['attributes'], unknown=INCLUDE)
     except ValidationError as err:
         print(err.messages)
         return "validation error", 400
