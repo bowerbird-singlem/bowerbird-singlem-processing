@@ -108,19 +108,19 @@ def task_update():
         return f"Bad Request: {msg}", 400
  
     credentials = GoogleCredentials.get_application_default()
-    service = discovery.build('lifesciences', 'v2beta', credentials=credentials)
-    parent = json_req['message']['attributes']['operation'] 
+    lifesciences_service = discovery.build('lifesciences', 'v2beta', credentials=credentials)
+    status_parent = json_req['message']['attributes']['operation'] 
 
     #ls_request = service.projects().locations().operations().get(name=parent)
     #response = ls_request.execute()
     #print(response)
 
     try:
-        ls_request = service.projects().locations().operations().get(name=parent)
-        response = ls_request.execute()
-        print(response)
+        status_request = service.projects().locations().operations().get(name=status_parent)
+        status_response = status_request.execute()
+        print(status_response)
     except errors.HttpError as err:
-    	print('There was an error retrieving the update status. Check the details:')
+        print('There was an error retrieving the update status. Check the details:')
     	print(err._get_reason())
 
     i = 0
