@@ -15,7 +15,7 @@ from marshmallow import Schema, fields, ValidationError
 app = Flask(__name__)
 
 class CreateTaskRunInputSchema(Schema):
-    TASK_NAME fields.Str(required=True)
+    TASK_NAME = fields.Str(required=True)
     TASK_WORKFLOW_SCRIPT_PATH = fields.Str(required=True)
     TASK_OUTPUT_PATH = fields.Str(required=True)
     TASK_ATTEMPTS_SO_FAR = fields.Int(required=True) 
