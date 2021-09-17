@@ -57,6 +57,15 @@ def new_task():
     print("acc")
     print(acc)
 
+    # check TASK_ATTEMPTS_SO_FAR < TASK_MAX_ATTEMPTS
+    # NOT IMPLEMENTED
+    
+    if int(valid_request_data['TASK_ATTEMPTS_SO_FAR']) < int(valid_request_data['TASK_MAX_ATTEMPTS']):
+        valid_request_data['TASK_ATTEMPTS_SO_FAR'] = int(valid_request_data['TASK_ATTEMPTS_SO_FAR']) + 1
+        pass
+    else:
+        return "return "too many restarts", 204
+
     # get pipeline template
     storage_client = storage.Client()
     bucket = storage_client.bucket("maximal-dynamo-308105-bowerbird")
