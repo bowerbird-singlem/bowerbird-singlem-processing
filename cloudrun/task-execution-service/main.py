@@ -96,8 +96,9 @@ def task_update():
     service = discovery.build('lifesciences', 'v2beta', credentials=credentials)
     parent = json_req['message']['attributes']['operation'] 
 
-    ls_request = service.projects().locations().operations().get(parent=parent)
-    print(ls_request)
+    ls_request = service.projects().locations().operations().get(name=parent)
+    response = ls_request.execute()
+    print(response)
 
 
     i = 0
