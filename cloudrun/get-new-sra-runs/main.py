@@ -25,13 +25,13 @@ def index():
     for row in rows:
         future = publisher.publish("projects/maximal-dynamo-308105/topics/bb-core-task-execution-requests", 
                 b'test', 
-                SRA_ACCESSION_NUM=row.acc
-                MBASES = row.mbases
-                MBYTES = row.mbytes
-                TASK_NAME = "singlem"
-                TASK_WORKFLOW_SCRIPT_PATH = "gs://bowerbird/workflows/singlem/pipeline.json"
-                TASK_OUTPUT_PATH = "gs://bowerbird/workflows/singlem/outputs"
-                TASK_ATTEMPTS_SO_FAR = 0
+                SRA_ACCESSION_NUM=row.acc,
+                MBASES = row.mbases,
+                MBYTES = row.mbytes,
+                TASK_NAME = "singlem",
+                TASK_WORKFLOW_SCRIPT_PATH = "gs://bowerbird/workflows/singlem/pipeline.json",
+                TASK_OUTPUT_PATH = "gs://bowerbird/workflows/singlem/outputs",
+                TASK_ATTEMPTS_SO_FAR = 0,
                 TASK_MAX_ATTEMPTS = 1
                 )
         future.result()
