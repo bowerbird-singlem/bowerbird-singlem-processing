@@ -82,7 +82,7 @@ def new_task():
     i = 0
     t_end = time.time() + 15
     while time.time() < t_end:
-            i = i+1
+        i = i+1
     #print(i)        
     print("sleep done")
     
@@ -119,7 +119,7 @@ def task_update():
         print(status_response)
     except errors.HttpError as err:
         print('There was an error retrieving the update status. Check the details:')
-    	print(err._get_reason())
+        print(err._get_reason())
 
     i = 0
     t_end = time.time() + 5
