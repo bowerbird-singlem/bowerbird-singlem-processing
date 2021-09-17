@@ -75,17 +75,15 @@ def new_task():
     run_pipeline_request_body["pipeline"]["environment"]["SRA_ACCESSION_NUM"] = acc
     run_pipeline_request_body["pubSubTopic"] = "projects/maximal-dynamo-308105/topics/bb-core-task-execution-updates"
 
-    ls_request = service.projects().locations().pipelines().run(parent=parent, body=run_pipeline_request_body)
-    response = ls_request.execute()
-
-    print(response["name"])
-
+    run_request = service.projects().locations().pipelines().run(parent=parent, body=run_pipeline_request_body)
+    run_request_response = run_request.execute()
+    print(run_request_response["name"])
 
     i = 0
     t_end = time.time() + 15
     while time.time() < t_end:
             i = i+1
-    print(i)        
+    #print(i)        
     print("sleep done")
     
     return ("", 204)
@@ -109,14 +107,14 @@ def task_update():
  
     credentials = GoogleCredentials.get_application_default()
     lifesciences_service = discovery.build('lifesciences', 'v2beta', credentials=credentials)
-    status_parent = json_req['message']['attributes']['operation'] 
+    operation_path = json_req['message']['attributes']['operation'] 
 
     #ls_request = service.projects().locations().operations().get(name=parent)
     #response = ls_request.execute()
     #print(response)
 
     try:
-        status_request = service.projects().locations().operations().get(name=status_parent)
+        status_request = service.projects().locations().operations().get(name=operation_path)
         status_response = status_request.execute()
         print(status_response)
     except errors.HttpError as err:
@@ -127,7 +125,7 @@ def task_update():
     t_end = time.time() + 5
     while time.time() < t_end:
         i = i+1
-    print(i)        
+    #print(i)        
     print("sleep done")
     
     print("done")
