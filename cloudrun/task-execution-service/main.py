@@ -15,7 +15,11 @@ from marshmallow import Schema, fields, ValidationError
 app = Flask(__name__)
 
 class CreateTaskRunInputSchema(Schema):
-    accession = fields.Str(required=True)
+    TASK_NAME fields.Str(required=True)
+    TASK_WORKFLOW_SCRIPT_PATH = fields.Str(required=True)
+    TASK_OUTPUT_PATH = fields.Str(required=True)
+    TASK_ATTEMPTS_SO_FAR = fields.Int(required=True) 
+    TAX_MAX_ATTEMPTS = fields.Int(required=True)
 
 @app.route("/newtask", methods=["POST"])
 def new_task():
@@ -43,7 +47,7 @@ def new_task():
 
     print(valid_request_data) 
 
-    acc = valid_request_data.get('accession')
+    acc = valid_request_data.get('SRA_ACCESSION_NUM')
     print("acc")
     print(acc)
 
