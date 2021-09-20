@@ -75,7 +75,10 @@ def new_task():
     print(pipeline_imported_json)
 
     # prep template
-    pipeline_prepped_json = jsone.render(pipeline_imported_json, valid_request_data)
+    valid_template_inputs = {}
+    valid_template_inputs['RUN_REQUEST_INPUTS'] = valid_request_data
+    print(valid_template_inputs)
+    pipeline_prepped_json = jsone.render(pipeline_imported_json, valid_template_inputs)
     print(pipeline_prepped_json)
     
 
