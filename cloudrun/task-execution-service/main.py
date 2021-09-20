@@ -132,8 +132,8 @@ def task_update():
             print(type(error_code))
             if error_code == 14:
                 try:
-                    end_time = status_response['endTime']
-                    print(end_time)
+                    done = status_response['done']
+                    print(done)
                     if endtime:
                         try: 
                             attempts_so_far = status_response['metadata']['pipeline']['environment']['TASK_ATTEMPTS_SO_FAR']
@@ -143,7 +143,7 @@ def task_update():
                         except KeyError:
                             print("can't get attempt fields")
                 except KeyError:
-                    print('no end time attribute')
+                    print('no done attribute')
         except KeyError:
             print('no error code attribute')
     except errors.HttpError as err:
