@@ -134,7 +134,7 @@ def task_update():
                 try:
                     done = status_response['done']
                     print(done)
-                    if endtime:
+                    if done == True:
                         try: 
                             attempts_so_far = status_response['metadata']['pipeline']['environment']['TASK_ATTEMPTS_SO_FAR']
                             max_attempts = status_response['metadata']['pipeline']['environment']['TASK_MAX_ATTEMPTS']
