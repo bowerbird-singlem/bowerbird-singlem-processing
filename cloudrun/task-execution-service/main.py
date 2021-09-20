@@ -143,7 +143,7 @@ def task_update():
                             print("can't get attempt fields")
                 except AttributeError:
                     print('no latest event attribute')
-        except AttributeError:
+        except KeyError:
             print('no error code attribute')
     except errors.HttpError as err:
         print('There was an error retrieving the update status. Check the details:')
