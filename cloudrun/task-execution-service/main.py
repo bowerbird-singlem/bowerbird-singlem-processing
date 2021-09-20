@@ -126,20 +126,29 @@ def task_update():
     try:
         status_request = lifesciences_service.projects().locations().operations().get(name=operation_path)
         status_response = status_request.execute()
-  
-        try:
-            print(status_response['metadata']['events'][0]['description'])
+        try:        
+            error_code = status_response['error']['code']                          
+            print(error_code)
+            if error_code == "14":
+                try:
+                    latest_event = status_response['metadata']['events'][0]['description']
+                    print(latest_event)
+                    if latest_event == "Worker released":
+                        try: 
+                            attempts_so_far = status_response['pipeline']['environment']['TASK_ATTEMPTS_SO_FAR']
+                            max_attempts = status_response['pipeline']['environment']['TASK_MAX_ATTEMPTS']
+                            print(attempts_so_far)
+                            print(max_attempts)
+                        except AttributeError:
+                            print("can't get attempt fields")
+                except AttributeError:
+                    print('no latest event attribute')
         except AttributeError:
-            print('attribute error')
-        except IndexError:
-            print('index error')
-
+            print('no error code attribute')
     except errors.HttpError as err:
         print('There was an error retrieving the update status. Check the details:')
         print(err._get_reason())
     
-
-
     i = 0
     t_end = time.time() + 5
     while time.time() < t_end:
