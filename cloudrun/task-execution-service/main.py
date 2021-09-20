@@ -129,7 +129,8 @@ def task_update():
         try:        
             error_code = status_response['error']['code']                          
             print(error_code)
-            if error_code == "14":
+            print(type(error_code))
+            if error_code == 14:
                 try:
                     latest_event = status_response['metadata']['events'][0]['description']
                     print(latest_event)
@@ -139,9 +140,9 @@ def task_update():
                             max_attempts = status_response['pipeline']['environment']['TASK_MAX_ATTEMPTS']
                             print(attempts_so_far)
                             print(max_attempts)
-                        except AttributeError:
+                        except KeyError:
                             print("can't get attempt fields")
-                except AttributeError:
+                except KeyError:
                     print('no latest event attribute')
         except KeyError:
             print('no error code attribute')
