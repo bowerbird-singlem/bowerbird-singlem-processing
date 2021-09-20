@@ -132,18 +132,18 @@ def task_update():
             print(type(error_code))
             if error_code == 14:
                 try:
-                    latest_event = status_response['metadata']['events'][0]['description']
-                    print(latest_event)
-                    if latest_event == "Worker released":
+                    end_time = status_response['endTime']
+                    print(end_time)
+                    if endtime:
                         try: 
-                            attempts_so_far = status_response['pipeline']['environment']['TASK_ATTEMPTS_SO_FAR']
-                            max_attempts = status_response['pipeline']['environment']['TASK_MAX_ATTEMPTS']
+                            attempts_so_far = status_response['metadata']['pipeline']['environment']['TASK_ATTEMPTS_SO_FAR']
+                            max_attempts = status_response['metadata']['pipeline']['environment']['TASK_MAX_ATTEMPTS']
                             print(attempts_so_far)
                             print(max_attempts)
                         except KeyError:
                             print("can't get attempt fields")
                 except KeyError:
-                    print('no latest event attribute')
+                    print('no end time attribute')
         except KeyError:
             print('no error code attribute')
     except errors.HttpError as err:
