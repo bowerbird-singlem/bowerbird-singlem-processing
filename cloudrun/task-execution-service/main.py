@@ -87,7 +87,7 @@ def new_task():
 
     pipeline_prepped_json["pubSubTopic"] = "projects/maximal-dynamo-308105/topics/bb-core-task-execution-updates"
 
-    pipeline_prepped_json = json.dumps(pipeline_prepped_json)
+    #pipeline_prepped_json = json.dumps(pipeline_prepped_json)
     
     run_request = service.projects().locations().pipelines().run(parent=parent, body=pipeline_prepped_json)
     run_request_response = run_request.execute()
