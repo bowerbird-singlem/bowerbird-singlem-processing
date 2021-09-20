@@ -123,17 +123,22 @@ def task_update():
     lifesciences_service = discovery.build('lifesciences', 'v2beta', credentials=credentials)
     operation_path = json_req['message']['attributes']['operation'] 
 
-    #ls_request = service.projects().locations().operations().get(name=parent)
-    #response = ls_request.execute()
-    #print(response)
-
     try:
         status_request = lifesciences_service.projects().locations().operations().get(name=operation_path)
         status_response = status_request.execute()
-        print(status_response)
+  
+        try:
+            print(status_response['metadata']['events'][0]['description'])
+        except AttributeError:
+            print('attribute error')
+        except IndexError:
+            print('index error')
+
     except errors.HttpError as err:
         print('There was an error retrieving the update status. Check the details:')
         print(err._get_reason())
+    
+
 
     i = 0
     t_end = time.time() + 5
