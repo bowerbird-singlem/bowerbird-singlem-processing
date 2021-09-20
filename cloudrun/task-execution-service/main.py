@@ -61,7 +61,7 @@ def new_task():
     # NOT IMPLEMENTED
     
     if int(valid_request_data['TASK_ATTEMPTS_SO_FAR']) < int(valid_request_data['TASK_MAX_ATTEMPTS']):
-        valid_request_data['TASK_ATTEMPTS_SO_FAR'] = int(valid_request_data['TASK_ATTEMPTS_SO_FAR']) + 1
+        valid_request_data['TASK_ATTEMPTS_SO_FAR'] = str(int(valid_request_data['TASK_ATTEMPTS_SO_FAR']) + 1)
         pass
     else:
         return "too many restarts", 204
