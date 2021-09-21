@@ -86,7 +86,7 @@ resource "google_pubsub_subscription" "task_execution_requests_subscription" {
   name  = "bb-core-task-execution-requests-subscription"
   topic = google_pubsub_topic.task_execution_requests.name
 
-  ack_deadline_seconds = 20
+  ack_deadline_seconds = 60
 
   push_config {
     push_endpoint = "${google_cloud_run_service.task_execution_service.status[0].url}/newtask"
@@ -107,7 +107,7 @@ resource "google_pubsub_subscription" "task_execution_updates_subscription" {
   name  = "bb-core-task-execution-updates-subscription"
   topic = google_pubsub_topic.task_execution_updates.name
 
-  ack_deadline_seconds = 20
+  ack_deadline_seconds = 60
 
   filter = "attributes:done"
 
