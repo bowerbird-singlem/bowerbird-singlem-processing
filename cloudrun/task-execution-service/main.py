@@ -7,6 +7,8 @@ from pprint import pprint
 from google.cloud import storage
 import jsone
 
+from google.cloud import pubsub_v1
+
 from googleapiclient import discovery
 from googleapiclient import errors
 from oauth2client.client import GoogleCredentials
@@ -136,10 +138,29 @@ def task_update():
                     print(done)
                     if done == True:
                         try: 
-                            attempts_so_far = status_response['metadata']['pipeline']['environment']['TASK_ATTEMPTS_SO_FAR']
-                            max_attempts = status_response['metadata']['pipeline']['environment']['TASK_MAX_ATTEMPTS']
+                            current_task_inputs = status_response['metadata']['pipeline']['environment'] 
+                            attempts_so_far = current_task_inputs['TASK_ATTEMPTS_SO_FAR']
+                            max_attempts = current_task_inputs['TASK_MAX_ATTEMPTS']
                             print(attempts_so_far)
                             print(max_attempts)
+                            if int(attempts_so_far) < int(max_attempts):
+                                print("more retries available - attempting rerun")                       
+#                               publisher = pubsub_v1.PublisherClient()
+#                               future = publisher.publish("projects/maximal-dynamo-308105/topics/bb-core-task-execution-requests",
+#                               b'test',
+#                               SRA_ACCESSION_NUM=row.acc,
+#                               MBASES = str(row.mbases),
+#                               MBYTES = str(row.mbytes),
+#                               DOWNLOAD_METHOD_ORDER = "aws-http prefetch",
+#                               TASK_NAME = "singlem",
+#                               TASK_WORKFLOW_SCRIPT_PATH = "gs://maximal-dynamo-308105-bowerbird/tasks/singlem/pipeline.json",
+#                               TASK_OUTPUT_PATH = "gs://maximal-dynamo-308105-bowerbird/outputs/singlem/",
+#                               TASK_ATTEMPTS_SO_FAR = str(0),
+#                               TASK_MAX_ATTEMPTS = str(1)
+#                               )
+#                               future.result()
+                            else:        
+                                return "too many restarts - terminating.", 204
                         except KeyError:
                             print("can't get attempt fields")
                 except KeyError:
