@@ -33,7 +33,7 @@ def index():
                 TASK_WORKFLOW_SCRIPT_PATH = "gs://maximal-dynamo-308105-bowerbird/tasks/singlem/pipeline.json",
                 TASK_OUTPUT_PATH = "gs://maximal-dynamo-308105-bowerbird/outputs/singlem/",
                 TASK_ATTEMPTS_SO_FAR = str(0),
-                TASK_MAX_ATTEMPTS = str(1)
+                TASK_MAX_ATTEMPTS = str(2)
                 )
         future.result()
     return ("", 204)
