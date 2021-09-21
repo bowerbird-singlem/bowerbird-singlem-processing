@@ -159,7 +159,8 @@ def task_update():
 #                               TASK_MAX_ATTEMPTS = str(1)
 #                               )
 #                               future.result()
-                            else:        
+                            else:       
+                                print("too many restarts - terminating")
                                 return "too many restarts - terminating.", 204
                         except KeyError:
                             print("can't get attempt fields")
