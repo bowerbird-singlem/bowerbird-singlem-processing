@@ -135,7 +135,7 @@ def task_update():
             cancel_request = lifesciences_service.projects().locations().operations().cancel(name=operation_path)
             cancel_response = cancel_request.execute()
             print("cancel response")
-            print(cancel response)
+            print(cancel_response)
             if error_code == 14:
                 try:
                     done = status_response['done']
