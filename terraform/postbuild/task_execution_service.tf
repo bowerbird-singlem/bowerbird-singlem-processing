@@ -37,7 +37,7 @@ resource "google_project_iam_binding" "task_execution_executor_can_use_storage" 
 
 resource "google_project_iam_binding" "task_execution_executor_can_send_pubsub_messages" {
   project = var.project
-  role    = "roles/pubsub.publisher"
+  role    = "roles/pubsub.admin"
   members = [
     "serviceAccount:${google_service_account.task_execution_executor.email}"
   ]
