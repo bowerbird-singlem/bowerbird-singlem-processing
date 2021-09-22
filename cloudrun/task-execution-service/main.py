@@ -144,9 +144,11 @@ def task_update():
                             print(max_attempts)
                             if int(attempts_so_far) < int(max_attempts):
                                 print("more retries available - attempting rerun")                       
-#                               publisher = pubsub_v1.PublisherClient()
-#                               future = publisher.publish("projects/maximal-dynamo-308105/topics/bb-core-task-execution-requests",
-#                               b'test',
+                                publisher = pubsub_v1.PublisherClient()
+                                attributes = [k+" = "+str(v) for k, v in current_task_inputs.items()]
+                                print(attributes)
+                                future = publisher.publish("projects/maximal-dynamo-308105/topics/bb-core-task-execution-requests",
+                                b'test', **attributes
 #                               SRA_ACCESSION_NUM=row.acc,
 #                               MBASES = str(row.mbases),
 #                               MBYTES = str(row.mbytes),
