@@ -138,7 +138,6 @@ def task_update():
                     if done == True:
                         try: 
                             current_task_inputs = status_response['metadata']['pipeline']['environment'] 
-                            print(current_task_inputs)
                             attempts_so_far = current_task_inputs['TASK_ATTEMPTS_SO_FAR']
                             max_attempts = current_task_inputs['TASK_MAX_ATTEMPTS']
                             print(attempts_so_far)
@@ -146,7 +145,7 @@ def task_update():
                             if int(attempts_so_far) < int(max_attempts):
                                 print("more retries available - attempting rerun")                       
                                 publisher = pubsub_v1.PublisherClient()
-                                current_task_inputs_str = {str(key): str(value) for key, value in current_task_inputs}
+                                current_task_inputs_str = {str(key): str(value) for key, value in current_task_inputs.items()}
                                 future = publisher.publish("projects/maximal-dynamo-308105/topics/bb-core-task-execution-requests",
                                 b'test', **current_task_inputs_str
 #                               SRA_ACCESSION_NUM=row.acc,
