@@ -109,8 +109,6 @@ resource "google_pubsub_subscription" "task_execution_updates_subscription" {
 
   ack_deadline_seconds = 60
 
-  filter = "attributes:done"
-
   push_config {
 
     push_endpoint = "${google_cloud_run_service.task_execution_service.status[0].url}/taskupdate"
