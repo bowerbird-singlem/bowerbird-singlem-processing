@@ -138,6 +138,7 @@ def task_update():
                     if done == True:
                         try: 
                             current_task_inputs = status_response['metadata']['pipeline']['environment'] 
+                            print(current_task_inputs)
                             attempts_so_far = current_task_inputs['TASK_ATTEMPTS_SO_FAR']
                             max_attempts = current_task_inputs['TASK_MAX_ATTEMPTS']
                             print(attempts_so_far)
