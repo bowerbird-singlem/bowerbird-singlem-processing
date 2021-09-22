@@ -148,15 +148,6 @@ def task_update():
                                 current_task_inputs_str = {str(key): str(value) for key, value in current_task_inputs.items()}
                                 future = publisher.publish("projects/maximal-dynamo-308105/topics/bb-core-task-execution-requests",
                                 b'test', **current_task_inputs_str
-#                               SRA_ACCESSION_NUM=row.acc,
-#                               MBASES = str(row.mbases),
-#                               MBYTES = str(row.mbytes),
-#                               DOWNLOAD_METHOD_ORDER = "aws-http prefetch",
-#                               TASK_NAME = "singlem",
-#                               TASK_WORKFLOW_SCRIPT_PATH = "gs://maximal-dynamo-308105-bowerbird/tasks/singlem/pipeline.json",
-#                               TASK_OUTPUT_PATH = "gs://maximal-dynamo-308105-bowerbird/outputs/singlem/",
-#                               TASK_ATTEMPTS_SO_FAR = str(0),
-#                               TASK_MAX_ATTEMPTS = str(1)
                                 )
                                 future.result()
                             else:       
