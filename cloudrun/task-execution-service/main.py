@@ -158,7 +158,7 @@ def task_update():
 #                               TASK_OUTPUT_PATH = "gs://maximal-dynamo-308105-bowerbird/outputs/singlem/",
 #                               TASK_ATTEMPTS_SO_FAR = str(0),
 #                               TASK_MAX_ATTEMPTS = str(1)
-#                               )
+                                )
 #                               future.result()
                             else:       
                                 print("too many restarts - terminating")
