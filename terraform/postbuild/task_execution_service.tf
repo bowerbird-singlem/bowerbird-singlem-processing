@@ -35,6 +35,14 @@ resource "google_project_iam_binding" "task_execution_executor_can_use_storage" 
   ]
 }
 
+resource "google_project_iam_binding" "task_execution_executor_can_send_pubsub_messages" {
+  project = var.project
+  role    = "roles/pubsub.publisher"
+  members = [
+    "serviceAccount:${google_service_account.task_execution_executor.email}"
+  ]
+}
+
 resource "google_service_account_iam_binding" "task_execution_executor_can_impersonate_lifesciences_executor" {
   service_account_id = google_service_account.lifesciences_executor.name
   role               = "roles/iam.serviceAccountUser"

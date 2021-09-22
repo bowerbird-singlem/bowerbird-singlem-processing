@@ -158,7 +158,7 @@ def task_update():
 #                               TASK_ATTEMPTS_SO_FAR = str(0),
 #                               TASK_MAX_ATTEMPTS = str(1)
                                 )
-#                               future.result()
+                                future.result()
                             else:       
                                 print("too many restarts - terminating")
                                 return "too many restarts - terminating.", 204
