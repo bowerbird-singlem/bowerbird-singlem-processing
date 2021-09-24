@@ -22,7 +22,7 @@ def index():
     
     publisher = pubsub_v1.PublisherClient()
 
-    project_id = os.getenv('PROJECT_ID')
+    project_id = os.getenv('PROJECT')
     topic_path = f"projects/{project_id}/topics/bb-core-task-execution-requests"
     
     for row in rows:
