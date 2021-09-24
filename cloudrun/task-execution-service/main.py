@@ -68,10 +68,12 @@ def new_task():
     else:
         return "too many restarts", 204
 
+    project_id = os.getenv('PROJECT')
+    
     # get pipeline template
     storage_client = storage.Client()
-    bucket = storage_client.bucket("maximal-dynamo-308105-bowerbird")
-    blob = bucket.blob("tasks/singlem/pipeline.json")
+    bucket = storage_client.bucket(f"{project_id}-home")
+    blob = bucket.blob("bowerbird/tasks/singlem/pipeline.json")
     pipeline_imported = blob.download_as_string()
     pipeline_imported_json = json.loads(pipeline_imported)
     print(pipeline_imported_json)
@@ -85,9 +87,9 @@ def new_task():
     #send lifesciences api request
     credentials = GoogleCredentials.get_application_default()
     service = discovery.build('lifesciences', 'v2beta', credentials=credentials)
-    parent = 'projects/maximal-dynamo-308105/locations/us-central1'
+    parent = f'projects/{project_id}/locations/us-central1'
 
-    pipeline_prepped_json["pubSubTopic"] = "projects/maximal-dynamo-308105/topics/bb-core-task-execution-updates"
+    pipeline_prepped_json["pubSubTopic"] = f"projects/{project_id}/topics/bb-core-task-execution-updates"
 
     #pipeline_prepped_json = json.dumps(pipeline_prepped_json)
     

@@ -11,8 +11,10 @@ def index():
     
     client = bigquery.Client()
 
+    project_id = os.getenv('PROJECT')
+
     QUERY = (
-        'SELECT acc, mbases, mbytes FROM `maximal-dynamo-308105.singlem.sra_metadata_test1` '
+        f'SELECT acc, mbases, mbytes FROM `{project_id}.singlem.sra_metadata_test1` '
         'WHERE mbases < 500 '
         'LIMIT 1')
     
@@ -22,19 +24,16 @@ def index():
     
     publisher = pubsub_v1.PublisherClient()
 
-    project_id = os.getenv('PROJECT')
-    topic_path = f"projects/{project_id}/topics/bb-core-task-execution-requests"
-    
     for row in rows:
-        future = publisher.publish(topic_path, 
+        future = publisher.publish(f"projects/{project_id}/topics/bb-core-task-execution-requests", 
                 b'test', 
                 SRA_ACCESSION_NUM=row.acc,
                 MBASES = str(row.mbases),
                 MBYTES = str(row.mbytes),
                 DOWNLOAD_METHOD_ORDER = "aws-http prefetch",
                 TASK_NAME = "singlem",
-                TASK_WORKFLOW_SCRIPT_PATH = "gs://maximal-dynamo-308105-bowerbird/tasks/singlem/pipeline.json",
-                TASK_OUTPUT_PATH = "gs://maximal-dynamo-308105-bowerbird/outputs/singlem/",
+                TASK_WORKFLOW_SCRIPT_PATH = f"gs://{project_id}-home/bowerbird/tasks/singlem/pipeline.json",
+                TASK_OUTPUT_PATH = "gs://{project_id}-home/bowerbird/outputs/singlem/",
                 TASK_ATTEMPTS_SO_FAR = str(0),
                 TASK_MAX_ATTEMPTS = str(2)
                 )
