@@ -13,3 +13,16 @@ resource "google_project_service" "bigquery-gcp-service" {
   project = var.project
   disable_on_destroy = false
 }
+
+resource "google_project_service" "iam-gcp-service" {
+  service = "iam.googleapis.com"
+  project = var.project
+  disable_on_destroy = false
+}
+
+resource "google_project_service" "lifesciences-gcp-service" {
+  service = "lifesciences.googleapis.com.googleapis.com"
+  project = var.project
+  disable_on_destroy = false
+}
+

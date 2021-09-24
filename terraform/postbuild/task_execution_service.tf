@@ -17,6 +17,9 @@ resource "google_pubsub_topic" "task_execution_updates" {
 resource "google_service_account" "task_execution_executor" {
   account_id   = "bb-core-run"
   project = var.project
+  depends_on = [
+    google_project_service.iam-gcp-service,
+  ]
 }
 
 resource "google_project_iam_binding" "task_execution_executor_can_run_lifesciences" {
