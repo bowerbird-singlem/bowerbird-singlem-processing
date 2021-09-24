@@ -6,8 +6,9 @@ steps:
   - '-c'
   - | 
         export TF_VAR_project=$PROJECT_ID
-        cd terraform/prebuild      
-        terraform init -backend-config "bucket=$PROJECT_ID-tfstate"
+        cd terraform/prebuild  
+        sed -i 's/REPLACE_WITH_PROJECT/$PROJECT_ID/g' main.tf
+        terraform init 
         terraform workspace select prebuild || terraform workspace new prebuild
         terraform init
         if [ $_INFRA_ACTION = 'deploy' ]; then
