@@ -27,6 +27,14 @@ resource "google_project_iam_binding" "get_new_sra_runs_executor_bigquery_role" 
   ]
 }
 
+resource "google_project_iam_binding" "get_new_sra_runs_executor_can_send_pubsub_messages" {
+  project = var.project
+  role    = "roles/pubsub.admin"
+  members = [
+    "serviceAccount:${google_service_account.get_new_sra_runs_executor`.email}"
+  ]
+}
+
 resource "google_cloud_run_service" "get_new_sra_runs" {
   name     = "bb-singlem-proc-get-new-sra-runs"
   location = var.region
