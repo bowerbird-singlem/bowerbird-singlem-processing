@@ -12,6 +12,7 @@ def index():
     client = bigquery.Client()
 
     project_id = os.getenv('PROJECT')
+    print(project_id)
 
     QUERY = (
         f'SELECT acc, mbases, mbytes FROM `{project_id}.singlem.sra_metadata_test1` '
