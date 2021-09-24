@@ -7,7 +7,7 @@ steps:
   - | 
         export TF_VAR_project=$PROJECT_ID
         cd terraform/prebuild      
-        terraform init
+        terraform init -reconfigure
         terraform workspace select prebuild || terraform workspace new prebuild
         terraform init
         if [ $_INFRA_ACTION = 'deploy' ]; then
@@ -48,7 +48,7 @@ steps:
   - | 
         export TF_VAR_project=$PROJECT_ID
         cd terraform/postbuild 
-        terraform init
+        terraform init -reconfigure
         terraform workspace select postbuild || terraform workspace new postbuild 
         terraform init
         if [ $_INFRA_ACTION = 'deploy' ]; then
