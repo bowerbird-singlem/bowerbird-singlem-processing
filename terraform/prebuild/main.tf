@@ -2,10 +2,23 @@
 #  source = "../common"
 #}
 
+#terraform {
+#  backend "gcs" {
+#    bucket = "${var.project}-tfstate"                                   
+#    prefix = "bb-singlem-processing"                                                
+#  }
+#}
+
+
 terraform {
-  backend "gcs" {
-    bucket = "${var.project}-tfstate"                                   
-    prefix = "bb-singlem-processing"                                                
+  backend "gcs" {}
+}
+
+data "terraform_remote_state" "state" {
+  backend = "gcs"
+  config {
+    bucket = "${var.project}-tfstate"
+    prefix = "bb-singlem-processing"
   }
 }
 
