@@ -12,6 +12,9 @@ COPY cloudrun/get-new-sra-runs/requirements.txt ./
 # Install production dependencies.
 RUN pip install -r requirements.txt
 
+ARG PROJECT_ID
+ENV PROJECT=$PROJECT_ID
+
 # Copy local code to the container image.
 ENV APP_HOME /app
 WORKDIR $APP_HOME
