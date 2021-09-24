@@ -33,7 +33,7 @@ def index():
                 DOWNLOAD_METHOD_ORDER = "aws-http prefetch",
                 TASK_NAME = "singlem",
                 TASK_WORKFLOW_SCRIPT_PATH = f"gs://{project_id}-home/bowerbird/tasks/singlem/pipeline.json",
-                TASK_OUTPUT_PATH = "gs://{project_id}-home/bowerbird/outputs/singlem/",
+                TASK_OUTPUT_PATH = f"gs://{project_id}-home/bowerbird/outputs/singlem/",
                 TASK_ATTEMPTS_SO_FAR = str(0),
                 TASK_MAX_ATTEMPTS = str(2)
                 )
