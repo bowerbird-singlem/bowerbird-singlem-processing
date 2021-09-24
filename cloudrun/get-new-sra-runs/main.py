@@ -25,16 +25,23 @@ def index():
     
     publisher = pubsub_v1.PublisherClient()
 
+    topic = f"projects/{project_id}/topics/bb-core-task-execution-requests"
+    print(topic)
+    script_path = f"gs://{project_id}-home/bowerbird/tasks/singlem/pipeline.json"
+    print(script_path)
+    output_path = f"gs://{project_id}-home/bowerbird/outputs/singlem/"
+    print(output_path)
+
     for row in rows:
-        future = publisher.publish(f"projects/{project_id}/topics/bb-core-task-execution-requests", 
+        future = publisher.publish(topic, 
                 b'test', 
                 SRA_ACCESSION_NUM=row.acc,
                 MBASES = str(row.mbases),
                 MBYTES = str(row.mbytes),
                 DOWNLOAD_METHOD_ORDER = "aws-http prefetch",
                 TASK_NAME = "singlem",
-                TASK_WORKFLOW_SCRIPT_PATH = f"gs://{project_id}-home/bowerbird/tasks/singlem/pipeline.json",
-                TASK_OUTPUT_PATH = f"gs://{project_id}-home/bowerbird/outputs/singlem/",
+                TASK_WORKFLOW_SCRIPT_PATH = script_path,
+                TASK_OUTPUT_PATH = output_path,
                 TASK_ATTEMPTS_SO_FAR = str(0),
                 TASK_MAX_ATTEMPTS = str(2)
                 )
