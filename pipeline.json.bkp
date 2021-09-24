@@ -51,7 +51,7 @@
             "machineType":"n1-custom-1-4096",
             "enableStackdriverMonitoring":true,
             "serviceAccount":{
-               "email":"bb-core-ls-executor@maximal-dynamo-308105.iam.gserviceaccount.com"
+               "email":"bb-core-ls-executor@bowerbird-testing.iam.gserviceaccount.com"
             },
             "bootDiskSizeGb":30,
             "disks":[
