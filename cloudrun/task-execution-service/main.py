@@ -146,7 +146,9 @@ def task_update():
                                 print("more retries available - attempting rerun")                       
                                 publisher = pubsub_v1.PublisherClient()
                                 current_task_inputs_str = {str(key): str(value) for key, value in current_task_inputs.items()}
-                                future = publisher.publish("projects/maximal-dynamo-308105/topics/bb-core-task-execution-requests",
+                                project_id = os.getenv('PROJECT_ID')
+    				topic_path = f"projects/{project_id}/topics/bb-core-task-execution-requests"
+                                future = publisher.publish(topic_path,
                                 b'test', **current_task_inputs_str
                                 )
                                 future.result()

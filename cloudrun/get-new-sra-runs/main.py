@@ -22,8 +22,11 @@ def index():
     
     publisher = pubsub_v1.PublisherClient()
 
+    project_id = os.getenv('PROJECT_ID')
+    topic_path = f"projects/{project_id}/topics/bb-core-task-execution-requests"
+    
     for row in rows:
-        future = publisher.publish("projects/maximal-dynamo-308105/topics/bb-core-task-execution-requests", 
+        future = publisher.publish(topic_path, 
                 b'test', 
                 SRA_ACCESSION_NUM=row.acc,
                 MBASES = str(row.mbases),
