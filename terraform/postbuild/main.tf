@@ -1,6 +1,6 @@
 terraform {
   backend "gcs" {
-    bucket = "${var.project}-tfstate"                                         
+    bucket = "REPLACE_WITH_PROJECT-tfstate"                                         
     prefix = "bb-singlem-processing"                                                       
   }
 }

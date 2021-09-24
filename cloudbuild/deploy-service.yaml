@@ -49,6 +49,7 @@ steps:
   - | 
         export TF_VAR_project=$PROJECT_ID
         cd terraform/postbuild 
+        sed -i 's/REPLACE_WITH_PROJECT/$PROJECT_ID/g' main.tf
         terraform init
         terraform workspace select postbuild || terraform workspace new postbuild 
         terraform init
