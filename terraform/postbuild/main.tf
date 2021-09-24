@@ -1,6 +1,6 @@
 terraform {
   backend "gcs" {
-    bucket = "maximal-dynamo-308105-tfstate"
+    bucket = "${var.project}-tfstate"
     prefix = "bowerbird-singlem-processing"
   }
 }

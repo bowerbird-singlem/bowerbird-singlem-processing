@@ -5,6 +5,7 @@ steps:
   args:
   - '-c'
   - | 
+        export TF_VAR_project=$PROJECT_ID
         cd terraform/prebuild      
         terraform init
         terraform workspace select prebuild || terraform workspace new prebuild
