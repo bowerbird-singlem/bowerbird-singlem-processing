@@ -21,7 +21,7 @@ resource "google_project_service" "iam-gcp-service" {
 }
 
 resource "google_project_service" "lifesciences-gcp-service" {
-  service = "lifesciences.googleapis.com.googleapis.com"
+  service = "lifesciences.googleapis.com"
   project = var.project
   disable_on_destroy = false
 }
