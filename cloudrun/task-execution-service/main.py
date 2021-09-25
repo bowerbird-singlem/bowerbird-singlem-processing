@@ -49,6 +49,9 @@ def new_task():
     task_run_schema = CreateTaskRunInputSchema() 
     try:
         valid_request_data = task_run_schema.load(request_data['message']['attributes'], unknown=INCLUDE)
+    except KeyError:
+        print("can't get message attributes to pass to validation")
+        return "key error", 400
     except ValidationError as err:
         print(err.messages)
         return "validation error", 400
