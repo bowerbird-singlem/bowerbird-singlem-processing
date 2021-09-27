@@ -20,9 +20,9 @@ resource "google_service_account" "task_execution_executor" {
   depends_on = [
     google_project_service.iam-gcp-service,
   ]
-#  lifecycle {
-#    prevent_destroy = true
-#  }
+  lifecycle {
+    prevent_destroy = true
+  }
 }
 
 resource "google_project_iam_binding" "task_execution_executor_can_run_lifesciences" {
