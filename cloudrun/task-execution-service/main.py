@@ -161,6 +161,7 @@ def task_update():
                                     future.result()
                                 except Exception as error:
                                     print('An exception occurred: {}'.format(error))
+                                    return "couldn't rerun, terminating", 204
                             else:       
                                 print("too many restarts - terminating")
                                 return "too many restarts - terminating.", 204
