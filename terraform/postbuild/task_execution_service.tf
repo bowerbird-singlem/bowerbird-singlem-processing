@@ -29,7 +29,7 @@ resource "google_project_iam_binding" "task_execution_executor_can_run_lifescien
     "serviceAccount:${google_service_account.task_execution_executor.email}"
   ]
   depends_on = [
-    google_project_service.task_execution_executor
+    google_service_account.task_execution_executor
   ]
 }
 
@@ -40,7 +40,7 @@ resource "google_project_iam_binding" "task_execution_executor_can_use_storage" 
     "serviceAccount:${google_service_account.task_execution_executor.email}"
   ]
   depends_on = [  
-    google_project_service.task_execution_executor
+    google_service_account.task_execution_executor
   ]
 
 }
@@ -52,7 +52,7 @@ resource "google_project_iam_binding" "task_execution_executor_can_send_pubsub_m
     "serviceAccount:${google_service_account.task_execution_executor.email}"
   ]
   depends_on = [  
-    google_project_service.task_execution_executor
+    google_service_account.task_execution_executor
   ]
 }
 
