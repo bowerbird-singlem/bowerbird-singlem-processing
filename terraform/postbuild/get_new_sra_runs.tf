@@ -11,13 +11,13 @@ resource "google_service_account" "get_new_sra_runs_executor" {
   project = var.project
 }
 
-resource "google_project_iam_binding" "get_new_sra_runs_executor_editor_role" {
-  project = var.project
-  role    = "roles/editor"
-  members = [
-    "serviceAccount:${google_service_account.get_new_sra_runs_executor.email}"
-  ]
-}
+#resource "google_project_iam_binding" "get_new_sra_runs_executor_editor_role" {
+#  project = var.project
+#  role    = "roles/editor"
+#  members = [
+#    "serviceAccount:${google_service_account.get_new_sra_runs_executor.email}"
+#  ]
+#}
 
 resource "google_project_iam_binding" "get_new_sra_runs_executor_bigquery_role" {
   project = var.project
