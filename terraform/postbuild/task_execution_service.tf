@@ -1,17 +1,11 @@
 resource "google_pubsub_topic" "task_execution_requests" {
   name = "bb-core-task-execution-requests"
   project = var.project
-  depends_on = [
-    google_project_service.pubsub-gcp-service,
-  ]
 }
 
 resource "google_pubsub_topic" "task_execution_updates" {
   name = "bb-core-task-execution-updates"
   project = var.project
-  depends_on = [
-    google_project_service.pubsub-gcp-service,
-  ]
 }
 
 resource "random_id" "task_execution_executor_id" {
@@ -21,32 +15,18 @@ resource "random_id" "task_execution_executor_id" {
 resource "google_service_account" "task_execution_executor" {
   account_id   = "bb-core-task-run${random_id.task_execution_executor_id.dec}"
   project = var.project
-  depends_on = [
-    google_project_service.iam-gcp-service,
-  ]
 }
 
-resource "google_project_iam_binding" "task_execution_executor_can_run_lifesciences" {
+resource "google_project_iam_member" "task_execution_executor_can_run_lifesciences" {     
   project = var.project
   role    = "roles/lifesciences.workflowsRunner"
-  members = [
-    "serviceAccount:${google_service_account.task_execution_executor.email}"
-  ]
-  depends_on = [
-    google_service_account.task_execution_executor
-  ]
+  member = "serviceAccount:${google_service_account.task_execution_executor.email}"
 }
 
-resource "google_project_iam_binding" "task_execution_executor_can_use_storage" {
+resource "google_project_iam_member" "task_execution_executor_can_use_storage" {
   project = var.project
   role    = "roles/storage.admin"
-  members = [
-    "serviceAccount:${google_service_account.task_execution_executor.email}"
-  ]
-  depends_on = [  
-    google_service_account.task_execution_executor
-  ]
-
+  member = "serviceAccount:${google_service_account.task_execution_executor.email}"
 }
 
 resource "google_project_iam_member" "task_execution_executor_can_send_pubsub_messages" {
@@ -55,12 +35,10 @@ resource "google_project_iam_member" "task_execution_executor_can_send_pubsub_me
   member = "serviceAccount:${google_service_account.task_execution_executor.email}"
 }
 
-resource "google_service_account_iam_binding" "task_execution_executor_can_impersonate_lifesciences_executor" {
+resource "google_service_account_iam_member" "task_execution_executor_can_impersonate_lifesciences_executor" {
   service_account_id = google_service_account.lifesciences_executor.name
   role               = "roles/iam.serviceAccountUser"
-  members = [
-    "serviceAccount:${google_service_account.task_execution_executor.email}",
-  ]
+  member = "serviceAccount:${google_service_account.task_execution_executor.email}",
 }
 
 resource "google_cloud_run_service" "task_execution_service" {
