@@ -28,6 +28,9 @@ resource "google_project_iam_binding" "task_execution_executor_can_run_lifescien
   members = [
     "serviceAccount:${google_service_account.task_execution_executor.email}"
   ]
+  depends_on = [
+    google_project_service.task_execution_executor
+  ]
 }
 
 resource "google_project_iam_binding" "task_execution_executor_can_use_storage" {
@@ -36,6 +39,10 @@ resource "google_project_iam_binding" "task_execution_executor_can_use_storage" 
   members = [
     "serviceAccount:${google_service_account.task_execution_executor.email}"
   ]
+  depends_on = [  
+    google_project_service.task_execution_executor
+  ]
+
 }
 
 resource "google_project_iam_binding" "task_execution_executor_can_send_pubsub_messages" {
@@ -43,6 +50,9 @@ resource "google_project_iam_binding" "task_execution_executor_can_send_pubsub_m
   role    = "roles/pubsub.admin"
   members = [
     "serviceAccount:${google_service_account.task_execution_executor.email}"
+  ]
+  depends_on = [  
+    google_project_service.task_execution_executor
   ]
 }
 
@@ -78,7 +88,8 @@ resource "google_cloud_run_service" "task_execution_service" {
     latest_revision = true
   }
   depends_on = [
-    google_project_service.cloudrun-gcp-service,    
+    google_project_service.cloudrun-gcp-service,
+    google_service_account_iam_binding.task_execution_executor_can_send_pubsub_messages
   ]
 }
 
