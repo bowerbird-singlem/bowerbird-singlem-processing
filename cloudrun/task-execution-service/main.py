@@ -149,14 +149,18 @@ def task_update():
                             print(max_attempts)
                             if int(attempts_so_far) < int(max_attempts):
                                 print("more retries available - attempting rerun")                       
-                                publisher = pubsub_v1.PublisherClient()
-                                current_task_inputs_str = {str(key): str(value) for key, value in current_task_inputs.items()}
-                                project_id = os.getenv('PROJECT')
-                                topic_path = f"projects/{project_id}/topics/bb-core-task-execution-requests"
-                                future = publisher.publish(topic_path,
-                                b'test', **current_task_inputs_str
-                                )
-                                future.result()
+                                try:
+                                    publisher = pubsub_v1.PublisherClient()
+                                    current_task_inputs_str = {str(key): str(value) for key, value in current_task_inputs.items()}
+                                    project_id = os.getenv('PROJECT')
+                                    topic_path = f"projects/{project_id}/topics/bb-core-task-execution-requests"
+                                    print(topic_path)
+                                    future = publisher.publish(topic_path,
+                                    b'test', **current_task_inputs_str
+                                    )
+                                    future.result()
+                                except Exception as error:
+                                    print('An exception occurred: {}'.format(error))
                             else:       
                                 print("too many restarts - terminating")
                                 return "too many restarts - terminating.", 204
