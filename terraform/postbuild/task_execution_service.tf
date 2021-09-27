@@ -38,7 +38,7 @@ resource "google_project_iam_member" "task_execution_executor_can_send_pubsub_me
 resource "google_service_account_iam_member" "task_execution_executor_can_impersonate_lifesciences_executor" {
   service_account_id = google_service_account.lifesciences_executor.name
   role               = "roles/iam.serviceAccountUser"
-  member = "serviceAccount:${google_service_account.task_execution_executor.email}",
+  member = "serviceAccount:${google_service_account.task_execution_executor.email}"
 }
 
 resource "google_cloud_run_service" "task_execution_service" {
