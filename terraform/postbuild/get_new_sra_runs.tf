@@ -1,9 +1,6 @@
 resource "google_pubsub_topic" "get_new_sra_runs_requests" {
   name = "bb-singlem-processing-get-new-sra-runs-requests"
   project = var.project
-  depends_on = [
-    google_project_service.pubsub-gcp-service,
-  ]
 }
 
 resource "random_id" "get_new_sra_runs_executor_id" {
@@ -15,12 +12,10 @@ resource "google_service_account" "get_new_sra_runs_executor" {
   project = var.project
 }
 
-resource "google_project_iam_binding" "get_new_sra_runs_executor_bigquery_role" {
+resource "google_project_iam_member" "get_new_sra_runs_executor_bigquery_role" {
   project = var.project
   role    = "roles/bigquery.admin"
-  members = [
-    "serviceAccount:${google_service_account.get_new_sra_runs_executor.email}"
-  ]
+  member  = "serviceAccount:${google_service_account.get_new_sra_runs_executor.email}"
 }
 
 resource "google_project_iam_member" "get_new_sra_runs_executor_can_send_pubsub_messages" {
