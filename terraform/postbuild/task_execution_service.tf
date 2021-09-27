@@ -88,7 +88,6 @@ resource "google_cloud_run_service" "task_execution_service" {
   }
   depends_on = [
     google_project_service.cloudrun-gcp-service,
-    google_project_iam_binding.task_execution_executor_can_send_pubsub_messages
   ]
 }
 
