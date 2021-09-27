@@ -6,8 +6,12 @@ resource "google_pubsub_topic" "get_new_sra_runs_requests" {
   ]
 }
 
+resource "random_id" "get_new_sra_runs_executor_id" {
+  byte_length = 4
+}
+
 resource "google_service_account" "get_new_sra_runs_executor" {
-  account_id   = "bb-sing-get-new-sra"
+  account_id   = "bb-sing-get-new-sra${random_id.get_new_sra_runs_executor_id.dec}"                                         
   project = var.project
 }
 

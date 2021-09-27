@@ -14,8 +14,12 @@ resource "google_pubsub_topic" "task_execution_updates" {
   ]
 }
 
+resource "random_id" "task_execution_executor_id" {
+  byte_length = 4
+}
+
 resource "google_service_account" "task_execution_executor" {
-  account_id   = "bb-core-task-run"
+  account_id   = "bb-core-task-run${random_id.task_execution_executor_id.dec}"
   project = var.project
   depends_on = [
     google_project_service.iam-gcp-service,
