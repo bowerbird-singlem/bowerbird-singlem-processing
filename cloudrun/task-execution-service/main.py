@@ -135,7 +135,7 @@ def task_update():
         status_response = status_request.execute()
         try:        
             error_code = status_response['error']['code']                          
-            print(error_code)
+            print( f"error code is {error_code}" )
             if error_code == 14:
                 try:
                     done = status_response['done']
