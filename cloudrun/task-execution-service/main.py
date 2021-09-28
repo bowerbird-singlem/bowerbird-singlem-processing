@@ -101,7 +101,7 @@ def new_task():
     print(run_request_response["name"])
 
     i = 0
-    t_end = time.time() + 15
+    t_end = time.time() + 1
     while time.time() < t_end:
         i = i+1
     #print(i)        
@@ -176,7 +176,7 @@ def task_update():
         print(err._get_reason())
     
     i = 0
-    t_end = time.time() + 5
+    t_end = time.time() + 1
     while time.time() < t_end:
         i = i+1
     #print(i)        
