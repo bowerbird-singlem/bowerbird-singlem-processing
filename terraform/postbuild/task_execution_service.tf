@@ -47,7 +47,7 @@ resource "google_cloud_run_service" "task_execution_service" {
 
   template {
     spec {
-      container_concurrency = 3 
+      container_concurrency = 10
       containers {
         image = "us-central1-docker.pkg.dev/${var.project}/${var.repository}/task-execution-service"
       }
@@ -55,7 +55,7 @@ resource "google_cloud_run_service" "task_execution_service" {
     }
     metadata {
       annotations = {
-        "autoscaling.knative.dev/maxScale" = "2"
+        "autoscaling.knative.dev/maxScale" = "1"
       }
     }
 }

@@ -100,12 +100,12 @@ def new_task():
     run_request_response = run_request.execute()
     print(run_request_response["name"])
 
-    i = 0
-    t_end = time.time() + 1
-    while time.time() < t_end:
-        i = i+1
-    #print(i)        
-    print("sleep done")
+#    i = 0
+#    t_end = time.time() + 1
+#    while time.time() < t_end:
+#        i = i+1
+#    print(i)        
+#    print("sleep done")
     
     return ("", 204)
 
@@ -176,12 +176,12 @@ def task_update():
         print('There was an error retrieving the update status. Check the details:')
         print(err._get_reason())
     
-    i = 0
-    t_end = time.time() + 1
-    while time.time() < t_end:
-        i = i+1
-    #print(i)        
-    print("sleep done")
+#    i = 0
+#    t_end = time.time() + 1
+#    while time.time() < t_end:
+#        i = i+1
+#    print(i)        
+#    print("sleep done")
     
     print("done")
 
