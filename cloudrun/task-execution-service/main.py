@@ -137,7 +137,7 @@ def task_update():
             error_code = status_response['error']['code']                          
             error_code_msg = f"error code is {error_code}"
             print(error_code_msg)
-            if error_code == 14 OR error_code == 10:
+            if error_code == 14 or error_code == 10:
                 try:
                     done = status_response['done']
                     print(done)
