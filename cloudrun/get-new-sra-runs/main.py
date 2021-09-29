@@ -16,7 +16,7 @@ def index():
 
     QUERY = (
         f'SELECT acc, mbases, mbytes FROM `{project_id}.singlem.sra_metadata_test1` '
-        'WHERE mbases < 1000 '
+        'WHERE mbases < 300 '
         'LIMIT 1')
     
     query_job = client.query(QUERY)  # API request
