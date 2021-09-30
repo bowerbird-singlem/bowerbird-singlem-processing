@@ -8,6 +8,12 @@ resource "google_pubsub_topic" "task_execution_updates" {
   project = var.project
 }
 
+resource "google_cloud_tasks_queue" "task_execution_update_tasks" {
+  name = "bb-core-task-execution-updates"
+  location = "us-central1"
+}
+
+
 resource "random_id" "task_execution_executor_id" {
   byte_length = 4
 }
