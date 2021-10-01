@@ -1,0 +1,86 @@
+[
+  {
+    "description": "An automatically generated unique identifier",
+    "mode": "REQUIRED",
+    "name": "uuid",
+    "type": "STRING"
+  },
+  {
+    "description": "a json object with identifier and attributes for your input sample - eg sra-accession, size-in-MB",
+    "mode": "NULLABLE",
+    "name": "input_attrs",
+    "type": "STRING"
+  },
+  {
+    "description": "the name of the task",
+    "mode": "NULLABLE",
+    "name": "task_name",
+    "type": "STRING"
+  }, 
+  {
+    "description": "the path to the task workflow script",
+    "mode": "NULLABLE",
+    "name": "task_path",
+    "type": "STRING"
+  },
+    {
+    "description": "the gcp storage path where the task outputs should be written",
+    "mode": "NULLABLE",
+    "name": "task_output_path",
+    "type": "STRING"
+  },
+  {
+    "description": "the priority of the task. 1 is the highest priority",
+    "mode": "NULLABLE",
+    "name": "task_priority",
+    "type": "STRING" 
+  }, 
+  {
+    "description": "task attempts so far",                                                
+    "mode": "NULLABLE",
+    "name": "attempts_so_far",  
+    "type": "STRING"
+  },
+  {   
+    "description": "task max attempts",                                                                
+    "mode": "NULLABLE",
+    "name": "max_attempts",
+    "type": "STRING"
+  },
+  {
+    "description": "the id for the lifesciences operation in which the task is being run.",
+    "mode": "NULLABLE",
+    "name": "task_operation",
+    "type": "STRING"
+  },
+  {
+    "description": "the time at which the task was enabled to be run",
+    "mode": "NULLABLE",
+    "name": "task_ready_event",  
+    "type": "STRING"
+  },
+    {
+    "description": "the time at which the task processing commenced",
+    "mode": "NULLABLE",                             
+    "name": "task_trying_event",  
+    "type": "STRING"
+  },
+    {
+    "description": "the time at which the task started running in lifesciences",                               
+    "mode": "NULLABLE",                             
+    "name": "task_running_event",  
+    "type": "STRING"
+  },
+    {
+    "description": "the time at which the task processing was completed successfully",                               
+    "mode": "NULLABLE",                             
+    "name": "task_succeeded_event",  
+    "type": "STRING"
+  },
+  {
+    "description": "the time at which the task processing failed",
+    "mode": "NULLABLE",
+    "name": "task_failed_event",
+    "type": "STRING"
+  }
+]
