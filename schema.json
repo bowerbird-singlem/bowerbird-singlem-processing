@@ -57,25 +57,25 @@
     "description": "the time at which the task was enabled to be run",
     "mode": "NULLABLE",
     "name": "task_ready_event",  
-    "type": "STRING"
+    "type": "TIMESTAMP"
   },
     {
     "description": "the time at which the task processing commenced",
     "mode": "NULLABLE",                             
     "name": "task_trying_event",  
-    "type": "STRING"
+    "type": "TIMESTAMP"
   },
     {
     "description": "the time at which the task started running in lifesciences",                               
     "mode": "NULLABLE",                             
     "name": "task_running_event",  
-    "type": "STRING"
+    "type": "TIMESTAMP"
   },
     {
     "description": "the time at which the task processing was completed successfully",                               
     "mode": "NULLABLE",                             
     "name": "task_succeeded_event",  
-    "type": "STRING"
+    "type": "TIMESTAMP"
   },
   {
     "description": "the time at which the task processing failed",
